@@ -28,3 +28,9 @@ export const updateUser = async (user_email, user_password, user_name, user_surn
         UPDATE user_table SET user_email = ?, user_password = ?, user_name = ?, user_surname = ? WHERE user_id = ?
     `, [user_email, user_password, user_name, user_surname, user_id]);
 }
+
+export const deleteUser = async(user_id) => {
+    const [ user ] = await pool.query(`
+        DELETE FROM user_table WHERE user_id = ?
+    `, [user_id])
+}

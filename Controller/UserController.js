@@ -1,4 +1,4 @@
-import { getUsers, getUser, addUser, updateUser } from "../Model/UserModel.js";
+import { getUsers, getUser, addUser, updateUser, deleteUser } from "../Model/UserModel.js";
 
 export default {
     GET_ALL_USERS: async (req, res) => {
@@ -34,6 +34,14 @@ export default {
             user_surname ? user_surname : { user_surname } = user;
             
             await updateUser(ser_email, user_password, user_name, user_surname, +req.params.id);
+            res.send(await getUsers());
+        } catch (error) {
+            res.send({ error: error.message, serverRes: 500 });
+        }
+    },
+    DELETE_USER: async (req, res) => {
+        try {
+            await deleteUser(+req.params.id);
             res.send(await getUsers());
         } catch (error) {
             res.send({ error: error.message, serverRes: 500 });
