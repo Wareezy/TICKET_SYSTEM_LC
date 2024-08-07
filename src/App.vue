@@ -4,14 +4,17 @@
     <router-link to="/about">About</router-link>
   </nav> -->
   <navbar/>
+<footerTicket/>
   <router-view/>
 </template>
 <script>
 import navbar from './components/navbar.vue';
+import footerTicket from './components/footerTicket.vue'
 
 export default{
   components:{
-    navbar
+    navbar,
+    footerTicket
   }
 }
 </script>

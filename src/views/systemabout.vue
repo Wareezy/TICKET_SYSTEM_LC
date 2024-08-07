@@ -2,8 +2,8 @@
   <div id="content">
     <h1 id="heading1" data-aos="fade-left">StudioTicketFlow</h1>
     <p id="intro" data-aos="fade-right">
-      Meet StudioTicketFlow, LC Studio's game-changer for ticket complaints... <br />
-      It's not just about fixing issues; it's about delivering a seamless, efficient customer experience. With StudioTicketFlow, every complaint gets addressed swiftly and effectively, turning challenges into opportunities for enhanced customer satisfaction. Experience the future of customer support with StudioTicketFlow.
+      Meet StudioTicketFlow, LC Studio's game-changer for ticket complaints.<br />
+      It's not just about fixing issues; it's about delivering a seamless, <br/>efficient customer experience. With StudioTicketFlow, every complaint gets addressed <br/>swiftly and effectively, turning challenges into opportunities for enhanced customer satisfaction.<br/>Experience the future of customer support with StudioTicketFlow.
     </p>
     <div class="about">
       <img

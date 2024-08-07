@@ -1,9 +1,9 @@
 <template>
     <nav class="navbar navbar-expand-lg navbar-dark navbar-green sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">
+            <!-- <a class="navbar-brand" href="/">
                 <img id="logo" src="https://i.ibb.co/mBw9c0W/LC-STUDIO-LOGO-removebg-preview.png" alt="Logo" class="img-fluid">
-            </a>
+            </a> -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon text-white"></span>
             </button>
@@ -35,7 +35,7 @@ export default {
 
 <style>
 .navbar-green {
-    background-color: rgb(154,205,218); /* Change to your preferred shade of green */
+    background-color: rgb(171, 204, 55);
     padding-bottom: -20px !important;
 }
 .navbar {
