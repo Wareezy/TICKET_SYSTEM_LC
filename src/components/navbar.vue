@@ -13,10 +13,10 @@
                         <router-link class="nav-link text-black" to="/systemabout" exact active-class="router-link-active">Home</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link text-black" to="/about">Login</router-link>
+                        <router-link class="nav-link text-black" to="/login">Login</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link text-black" to="/admin">Sign-Up</router-link>
+                        <router-link class="nav-link text-black" to="/feedback">Feedback</router-link>
                     </li>
                     <li class="nav-item">
                         <router-link class="nav-link text-black" to="/admin">Tickets</router-link>
