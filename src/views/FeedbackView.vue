@@ -1,10 +1,16 @@
 <template>
     <div class="container">
-        <h1 class="feedback">Complaint</h1>
+      <h1 class="feedback">Complaint</h1>
       <form @submit.prevent="submitForm">
         <input type="text" placeholder="Title" v-model="title" />
         <input type="email" placeholder="Message" v-model="message" />
-        <select name="" id="">
+        <select name="Ticket" id="">
+          <option value="">Pick type of Ticket</option>
+          <option value="on-board">On Board</option>
+          <option value="off-board">Off Board</option>
+          <option value="IT-complaint">IT complaint</option>
+        </select>
+        <select name="Urgency" id="">
           <option value="">Pick type of urgency</option>
           <option value="urgent">Urgent</option>
           <option value="not-urgent">Not urgent</option>
@@ -38,7 +44,7 @@
     width: 500px;
     background-color: #f9f9f9; /* Light background for better contrast */
     padding: 20px;
-    border: 2px solid #9ACDDA; /* Blue border */
+    border: 2px solid rgb(171, 204, 55); /* Green border */
     border-radius: 8px; /* Rounded corners */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
   }
@@ -53,20 +59,23 @@
   select {
     padding: 12px;
     margin-bottom: 15px;
-    border: 2px solid #9ACDDA; /* Blue border */
+    border: 2px solid rgb(171, 204, 55); /* Green border */
     border-radius: 4px; /* Rounded corners */
     font-size: 16px; /* Larger font size for readability */
   }
   
-  input::placeholder,
+  input::placeholder {
+    color: #000; /* Black color for placeholder text */
+  }
+  
   select option {
-    color: #D90700; /* Blue color for placeholder text */
+    color: #000; /* Black color for select options */
   }
   
   button {
     padding: 12px;
-    background-color: #D90700; /* Red background color */
-    color: white;
+    background-color: rgb(171, 204, 55); /* Green background color */
+    color: #000; /* Black text color */
     border: none;
     border-radius: 4px; /* Rounded corners */
     cursor: pointer;
@@ -75,21 +84,18 @@
   }
   
   button:hover {
-    background-color: #b10600; /* Darker red for hover effect */
-    
+    background-color: #a2b639; /* Darker green for hover effect */
   }
-
+  
   .feedback {
     text-align: center;
     font-size: 32px;
     margin-bottom: 20px;
-    color: #000; /* Red color for login title */
-  }
-
-  .feedback::first-letter {
-    color: #D90700;
+    color: #000; /* Black color for the title */
   }
   
-
+  .feedback::first-letter {
+    color: rgb(171, 204, 55); /* Green color for the first letter */
+  }
   </style>
   
