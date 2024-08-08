@@ -33,7 +33,7 @@
             id: 1,
             name: 'John Doe',
             type: 'IT Support',
-            status: 'Complete',
+            status: 'Resolved',
             assignee: 'Cheslyn',
             description: 'Issue with computer not starting.',
             comments: ['Checked the power supply.']
@@ -61,7 +61,7 @@
     },
     computed: {
       completedTickets() {
-        return this.tickets.filter(ticket => ticket.status === 'Complete');
+        return this.tickets.filter(ticket => ticket.status === 'Resolved');
       }
     }
   };
