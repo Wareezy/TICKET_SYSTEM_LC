@@ -1,5 +1,12 @@
 <template>
     <div>
+      
+  
+      <div class="tabs">
+        <button @click="currentTab = 'allTickets'" :class="{ active: currentTab === 'allTickets' }">Open Tickets</button>
+        <button @click="currentTab = 'completedTickets'" :class="{ active: currentTab === 'completedTickets' }">Completed Tickets</button>
+      </div>
+  
       <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
           <!-- Existing filters and search bar -->
@@ -32,12 +39,7 @@
           </form>
         </div>
       </nav>
-  
-      <div class="tabs">
-        <button @click="currentTab = 'allTickets'" :class="{ active: currentTab === 'allTickets' }">All Tickets</button>
-        <button @click="currentTab = 'completedTickets'" :class="{ active: currentTab === 'completedTickets' }">Completed Tickets</button>
-      </div>
-  
+
       <div v-if="currentTab === 'allTickets'">
         <div class="container">
           <div class="table-wrapper">
@@ -47,6 +49,7 @@
                   <th scope="col">Name</th>
                   <th scope="col">Type</th>
                   <th scope="col" colspan="2">Status</th>
+                  <th scope="col">Priority</th>
                   <th scope="col">Assignee</th>
                 </tr>
               </thead>
@@ -54,11 +57,14 @@
                 <tr>
                   <td>John Doe</td>
                   <td>IT Support</td>
-                  <td class="status complete">Complete</td>
+                  <td class="status complete">Resolved</td>
                   <td>
                     <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#ticketModal" @click="selectTicket(1)">
                       View
                     </button>
+                  </td>
+                  <td>
+                    <button class="prioLow btn">Low</button>
                   </td>
                   <td>Cheslyn</td>
                 </tr>
@@ -71,6 +77,9 @@
                       View
                     </button>
                   </td>
+                  <td>
+                    <button class="prioHigh btn">High</button>
+                  </td>
                   <td>John Smith</td>
                 </tr>
                 <tr>
@@ -81,6 +90,9 @@
                     <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#ticketModal" @click="selectTicket(3)">
                       View
                     </button>
+                  </td>
+                  <td>
+                    <button class="prioMeh btn">Meh its debatable</button>
                   </td>
                   <td>N/A</td>
                 </tr>
@@ -191,71 +203,75 @@
     align-items: center;
     flex-direction: column;
   }
-  
+
   .filter-bar {
     margin-bottom: 20px;
   }
-  
+
   .filter-bar label {
     margin-right: 10px;
   }
-  
+
   .table-wrapper {
     width: 100%;
   }
-  
+
   .table {
     width: 100%;
     margin: 0 auto;
   }
-  
+
   .status.complete {
     background-color: greenyellow;
     border-radius: 100px;
     height: 25px;
+    padding: 5px 10px;
   }
-  
+
   .status.inProcess {
     background-color: rgb(255, 196, 47);
     border-radius: 100px;
     height: 25px;
+    padding: 5px 10px; /* added padding */
   }
-  
+
   .status.toBeAssigned {
     background-color: rgb(255, 0, 0);
     border-radius: 100px;
     height: 25px;
+    padding: 5px 10px; /* added padding */
   }
-  
+
   button {
     border-radius: 50px;
     background-color: rgba(164, 164, 164, 0.225);
     transition: background-color 0.75s ease;
+    padding: 5px 10px; /* added padding */
   }
-  
+
   button:hover {
     background-color: rgba(164, 164, 164, 0.5);
   }
-  
+
   .modal-body {
     font-weight: bold;
   }
-  
+
   .comments ul {
     list-style-type: none;
     padding: 0;
   }
-  
+
   .comments li {
     margin-bottom: 5px;
   }
-  
+
   .tabs {
     display: flex;
     justify-content: center;
     margin: 20px 0;
   }
-  
+
   .tabs button {
     background: none;
     border: none;
@@ -263,14 +279,38 @@
     cursor: pointer;
     font-size: 16px;
   }
-  
+
   .tabs button.active {
     font-weight: bold;
     border-bottom: 2px solid #000;
   }
-  
+
   .tabs button:not(.active) {
     color: #888;
   }
-  </style>
+
+  .prioLow {
+    color: yellow;
+    border-radius: 50px;
+    background-color: rgba(164, 164, 164, 0.225);
+    transition: background-color 0.75s ease;
+    padding: 5px 10px;
+  }
+
+  .prioMeh {
+    color: orange;
+    border-radius: 50px;
+    background-color: rgba(164, 164, 164, 0.225);
+    transition: background-color 0.75s ease;
+    padding: 5px 10px;
+  }
+
+  .prioHigh {
+    color: red;
+    border-radius: 50px;
+    background-color: rgba(164, 164, 164, 0.225);
+    transition: background-color 0.75s ease;
+    padding: 5px 10px;
+  }
+</style>
   
