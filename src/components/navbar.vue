@@ -24,6 +24,9 @@
                     <li class="nav-item">
                         <router-link class="nav-link text-black" to="/dashboard">Dashboard</router-link>
                     </li>
+                    <li class="nav-item">
+                        <router-link class="nav-link text-black" to="/register">Register</router-link>
+                    </li>
                 </ul>
             </div>
         </div>

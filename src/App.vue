@@ -4,8 +4,8 @@
     <router-link to="/about">About</router-link>
   </nav> -->
   <navbar/>
-<footerTicket/>
   <router-view/>
+  <footerTicket/>
 </template>
 <script>
 import navbar from './components/navbar.vue';
