@@ -25,6 +25,14 @@
                         <router-link class="nav-link text-black" to="/dashboard">Dashboard</router-link>
                     </li>
                 </ul>
+                <ul class="navbar-nav ms-auto right-align">
+                    <li class="nav-item">
+                        <router-link class="nav-link text-black" to="/dashboard">Log Out</router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link class="nav-link text-black" to="/dashboard">Logged User</router-link>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
@@ -44,12 +52,12 @@ export default {
 .navbar {
     border-radius: 0px; /* Rounded edges for the navbar */
 }
-nav a{
+nav a {
     font-weight: bold; 
     display: inline-block;
     position: relative;
-    color: black ;
-    font-size:20px;
+    color: black;
+    font-size: 20px;
     text-decoration: none;
     margin: 0 10px;
     transition: color 0.3s ease-in-out;
@@ -77,18 +85,26 @@ nav a:hover::after {
     transform-origin: bottom left;
 }
 
-#logo{
-    width:80px;
-    height:80px;
+#logo {
+    width: 80px;
+    height: 80px;
     animation: pulsate 2s infinite;
 }
-#logoImg1{
-    width:51px;
-    height:47px;
+
+#logoImg1 {
+    width: 51px;
+    height: 47px;
 }
-#logoImg2{
-    width:45px;
-    height:45px;
-    margin-top:-1px;
+
+#logoImg2 {
+    width: 45px;
+    height: 45px;
+    margin-top: -1px;
+}
+
+.right-align {
+    position: absolute;
+    right: 0;
 }
 </style>
+    
