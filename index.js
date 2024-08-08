@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 // this is still the same as doing that
 import 'dotenv/config';
 import UserRouter from './Routes/UserRoute.js'
+import FeedbackCon from './Routes/FeedbackRoute.js';
 
 const app = express();
 const PORT = process.env.PORT || 6969;
@@ -17,5 +18,6 @@ app.use('/test', (req, res) => {
 });
 
 app.use('/users', UserRouter)
+app.use('/feedback', FeedbackCon)
 
 app.listen(PORT, console.log(`Live on port: http://localhost:${PORT}`))
