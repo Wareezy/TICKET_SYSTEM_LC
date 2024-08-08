@@ -17,18 +17,18 @@ export const getUser = async (id) => {
     return user;
 }
 
-export const addUser = async (user_email, user_password, user_name, user_surname) => {
+export const addUser = async (user_email, user_password, user_name, user_surname, user_role) => {
     const [ insertedUser ] = await pool.query(`
-        INSERT INTO user_table (user_email, user_password, user_name, user_surname) VALUES (?, ?, ?, ?)
-    `,[user_email, user_password, user_name, user_surname]);
+        INSERT INTO user_table (user_email, user_password, user_name, user_surname, user_role) VALUES (?, ?, ?, ?, ?)
+    `,[user_email, user_password, user_name, user_surname, user_role]);
 
     return insertedUser.insertId;
 }
 
 export const updateUser = async (user_email, user_password, user_name, user_surname, user_id) => {
     const [ targeted_user ] = await pool.query(`
-        UPDATE user_table SET user_email = ?, user_password = ?, user_name = ?, user_surname = ? WHERE user_id = ?
-    `, [user_email, user_password, user_name, user_surname, user_id]);
+        UPDATE user_table SET user_email = ?, user_password = ?, user_name = ?, user_surname = ?, user_role = ? WHERE user_id = ?
+    `, [user_email, user_password, user_name, user_surname, user_role, user_id]);
 }
 
 export const deleteUser = async(user_id) => {
@@ -38,10 +38,9 @@ export const deleteUser = async(user_id) => {
 }
 
 
-export const checkUser=async (user_email)=>{
-const [[{user_password}]]=await pool.query(
-
-'SELECT password FROM user_table WHERE user_email=?',[user_email]
-)
-return user_password
+export const checkUser = async (user_email)=>{
+const [[{user_password}]]=await pool.query(`
+    SELECT password FROM user_table WHERE user_email = ?
+    `,[user_email]);
+    return user_password
 }
