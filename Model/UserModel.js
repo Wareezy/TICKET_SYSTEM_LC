@@ -1,4 +1,6 @@
 import { pool } from "../Config/config.js";
+import bcrypt from 'bcrypt'
+
 
 export const getUsers = async () => {
     const [ users ] = await pool.query(`
@@ -33,4 +35,13 @@ export const deleteUser = async(user_id) => {
     const [ user ] = await pool.query(`
         DELETE FROM user_table WHERE user_id = ?
     `, [user_id])
+}
+
+
+export const checkUser=async (user_email)=>{
+const [[{user_password}]]=await pool.query(
+
+'SELECT password FROM user_table WHERE user_email=?',[user_email]
+)
+return user_password
 }
