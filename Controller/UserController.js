@@ -18,7 +18,7 @@ export default {
     ADD_USER: async (req, res) => {
         try {
             const { user_email, user_password, user_name, user_surname } = req.body;
-            await addUser(user_email, user_password, user_name, user_surname);
+            await addUser(user_email, user_password, user_name, user_surname, user_role);
             res.send(await getUsers());
         } catch (error) {
             res.send({ error: error.message, serverRes: 500 });
@@ -32,8 +32,9 @@ export default {
             user_password ? user_password : { user_password } = user;
             user_name ? user_name : { user_name } = user;
             user_surname ? user_surname : { user_surname } = user;
+            user_role ? user_role : { user_role } = user;
             
-            await updateUser(ser_email, user_password, user_name, user_surname, +req.params.id);
+            await updateUser(user_email, user_password, user_name, user_surname, user_role, +req.params.id);
             res.send(await getUsers());
         } catch (error) {
             res.send({ error: error.message, serverRes: 500 });
