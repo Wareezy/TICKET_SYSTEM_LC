@@ -3,7 +3,7 @@
    <div class="container">
      <div class="row">
        <p class="lead">
-         OTAKU OASIS &copy;
+         StudioTicketFlow &copy;
          <span>{{currYear}}</span>
        </p>
      </div>
