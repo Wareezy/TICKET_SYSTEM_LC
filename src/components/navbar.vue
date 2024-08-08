@@ -13,23 +13,34 @@
                         <router-link class="nav-link text-black" to="/systemabout" exact active-class="router-link-active">Home</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link text-black" to="/login">Login</router-link>
+                        <router-link v-if="!$cookies.get('token')" class="nav-link text-black" to="/login">Login</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link text-black" to="/feedback">Feedback</router-link>
+                        <router-link v-if="$cookies.get('token') && isUser==='user'" class="nav-link text-black"  to="/feedback">Feedback</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link text-black" to="/admin">Tickets</router-link>
+                        <router-link v-if="$cookies.get('token') && isAdmin==='admin' " class="nav-link text-black" to="/admin">Tickets</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link text-black" to="/dashboard">Dashboard</router-link>
+                        <router-link  v-if="$cookies.get('token') && isAdmin==='admin' " class="nav-link text-black" to="/dashboard">Dashboard</router-link>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 </template>
-
+<script>
+export default{
+    computed:{
+        isAdmin(){
+            return $cookies.get('user_role')
+        },
+        isUser(){
+            return $cookies.get('user_role')
+        }
+    }
+}
+</script>
 <script>
 export default {
   // Your Vue.js component logic here

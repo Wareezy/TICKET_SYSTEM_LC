@@ -6,13 +6,14 @@
           <!-- <input type="text" placeholder="Name" v-model="name"> -->
           <input type="email" placeholder="Email" v-model="email" />
           <input type="password" placeholder="Password" v-model="password" />
-          <button type="submit">Submit</button>
+          <button type="submit" @click="loginUser" id="buttonLogin">Submit</button>
         </form>
       </div>
     </div>
   </template>
   
   <script>
+  import Swal from 'sweetalert2'
   export default {
     data() {
       return {
