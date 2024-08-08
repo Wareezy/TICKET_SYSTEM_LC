@@ -24,7 +24,7 @@
  <style>
  #footerID {
      position: absolute;
-   margin-top:570px;
+   margin-top:750px;
    /* margin-top: 60px; */
      width: 100%; /* Full width */
      background-color: rgb(171, 204, 55);
