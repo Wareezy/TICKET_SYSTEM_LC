@@ -2,11 +2,11 @@
     <div class="body">
       <div class="container">
         <h1 class="login">Login</h1>
-        <form>
+        <form @submit.prevent >
           <!-- <input type="text" placeholder="Name" v-model="name"> -->
-          <input type="email" placeholder="Email" v-model="email" />
-          <input type="password" placeholder="Password" v-model="password" />
-          <button type="submit" @click="loginUser">Submit</button>
+          <input type="email" placeholder="Email" v-model="user_email" />
+          <input type="password" placeholder="Password" v-model="user_password" />
+          <button type="submit" @click="loginUser()">Submit</button>
         </form>
       </div>
     </div>
@@ -16,8 +16,8 @@
   export default {
     data() {
       return {
-        email: '',
-        password: ''
+        user_email: '',
+        user_password: ''
       };
     },
     computed:{

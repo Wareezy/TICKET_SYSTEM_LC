@@ -159,13 +159,13 @@ catch(error){
     
     async loginUser({ commit }, currentUser) {
       try {
-        let { data } = await axios.post(BASE_URL + '/login', currentUser);
+        let { data } = await axios.post(BASE_URL + 'login', currentUser);
     
         if (data.token) {
           $cookies.set('token', data.token);
-          $cookies.set('user_role', data.user.userRole)
+          $cookies.set('user_role', data.user.user_role)
           // alert(data.msg);
-          await router.push('/feedback');
+          // await router.push('/dashboard');
           Swal.fire({
             title: 'Login Successful',
             text: 'User has logged in successfully!',
