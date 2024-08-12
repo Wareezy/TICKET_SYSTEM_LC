@@ -17,7 +17,7 @@ export default {
     },
     ADD_USER: async (req, res) => {
         try {
-            const { user_email, user_password, user_name, user_surname } = req.body;
+            const { user_email, user_password, user_name, user_surname,user_role } = req.body;
             await addUser(user_email, user_password, user_name, user_surname, user_role);
             res.send(await getUsers());
         } catch (error) {
