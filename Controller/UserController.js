@@ -1,4 +1,5 @@
 import { getUsers, getUser, addUser, updateUser, deleteUser, checkUser } from "../Model/UserModel.js";
+import bcrypt from 'bcrypt'
 
 export default {
     GET_ALL_USERS: async (req, res) => {
