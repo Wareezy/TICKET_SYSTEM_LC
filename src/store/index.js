@@ -3,7 +3,7 @@ import axios from 'axios'
 // import router from '@/router'
 // import Swal from 'sweetalert2'
 
-// const BASE_URL
+// const BASE_URL=link
 // axios.defaults.withCredentials=true
 export default createStore({
   state: {
@@ -165,7 +165,7 @@ catch(error){
         $cookies.set('token', data.token);
         $cookies.set('userRole', data.user.userRole)
         // alert(data.msg);
-        await router.push('/products');
+        await router.push('/tickets');
         Swal.fire({
           title: 'Login Successful',
           text: 'User has logged in successfully!',
@@ -216,7 +216,7 @@ catch(error){
       if (result.isConfirmed) {
         // Remove JWT token
         $cookies.remove('token');
-        $cookies.remove('userRole')
+        $cookies.remove('user_Role')
         // Redirect to login page
         router.push('/login');
         setTimeout(()=>{
