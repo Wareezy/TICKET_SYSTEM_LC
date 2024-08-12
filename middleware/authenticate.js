@@ -2,7 +2,7 @@ import {config} from 'dotenv'
 import bcrypt from 'bcrypt'
 import cookieParser from 'cookie-parser'
 import jwt from 'jsonwebtoken'
-import { checkUser,getUser } from '../Model/UserModel'
+import { checkUser,getUser } from '../Model/UserModel.js'
 config()
 
 const auth=async(req,res,next)=>{

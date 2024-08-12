@@ -1,17 +1,25 @@
-import express from 'express';
-import cookieParser from 'cookie-parser';
-import { csv } from 'express-csv';
-import { pool } from "../Config/config.js";
-// Do not have to call the config() function
-// this is still the same as doing that
-import 'dotenv/config';
-import UserRouter from './Routes/UserRoute.js'
-import FeedbackCon from './Routes/FeedbackRoute.js';
-
+import express from 'express'
+import {config} from 'dotenv'
+// import cors from 'cors'
+// import { authenticate } from './middleware/authenticate.js'
+// import { errorHandling } from './middleware/errorHandling.js'
+// import loginRouter from './routes/login.js'
+import { auth } from './middleware/authenticate.js'
+import ticketRouter from './Routes/FeedbackRoute.js'
+import userRouter from './Routes/UserRoute.js'
+import loginRouter from './Routes/login.js'
+import jwt from 'jsonwebtoken'
+import cookieParser from 'cookie-parser'
+import FeedbackCon from './Controller/FeedbackCon.js'
+config()
 const app = express();
 const PORT = process.env.PORT || 6969;
 
-app.use(express.static('./Static'));
+// app.use(cors({
+//     origin:'https://capstone-inventorysystem.web.app',
+//     credentials:true
+// }))
+app.use(express.static('views'))
 app.use(express.json());
 app.use(cookieParser());
 
@@ -19,9 +27,9 @@ app.use('/test', (req, res) => {
     res.send('<h1>HEELLLO</h1>')
 });
 
-app.use('/users', UserRouter)
-app.use('/feedback', FeedbackCon)
-
+app.use('/user', userRouter)
+app.use('/feedback', ticketRouter)
+app.use('/login',auth,loginRouter)
 // do not delete even if you dont understand the code  below
 
 app.get('/export-data', async (req, res) => {
