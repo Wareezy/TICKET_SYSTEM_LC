@@ -53,8 +53,8 @@ export default {
     },
     loginUser: async (req,res)=>{
         try{
-            const {email,password}=req.body;
-            await checkUser(email,password);
+            const {user_email, user_password}=req.body;
+            await checkUser(user_email, user_password);
 
         }catch (error){
             res.status(500).send({error:error.message

@@ -12,7 +12,7 @@ export const getUsers = async () => {
 
 export const getUser = async (id) => {
     const [ user ] = await pool.query(`
-        SELECT * FROM WHERE user_id = ?
+        SELECT * FROM user_table WHERE user_id = ?
     `, [id]);
     return user;
 }
@@ -40,7 +40,7 @@ export const deleteUser = async(user_id) => {
 
 export const checkUser = async (user_email)=>{
 const [[{user_password}]]=await pool.query(`
-    SELECT password FROM user_table WHERE user_email = ?
+    SELECT user_password FROM user_table WHERE user_email = ?
     `,[user_email]);
     return user_password
 }
