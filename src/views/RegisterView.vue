@@ -18,17 +18,35 @@
                 <input type="text" name="firstname" id="floatingName" class="input border-lc">
             </div>
             <div class="input-container flex flex-col">
-                <label for="floatingName" class="label">Phone no.</label>
+                <label for="floatingName" class="label">Password</label>
                 <input type="text" name="firstname" id="floatingName" class="input border-lc">
             </div>
             <div class="form-footer">
-                <button class="btn btn-lg bg-lc-red">Register</button>
+                <button @click="addUser" class="btn btn-lg bg-lc-red">Register</button>
             </div>
         </form>
     </div>
 </template>
 <script>
 export default {
+    data(){
+        return{
+    firstName:null,
+    lastName:null,
+    email:null,
+    password:null 
+        }
+     
+    },
+
+    methods:{
+        async addUser(){
+            await this.$store.dispatch('addUser',this.$data);
+            this.$router.push('/feedback')
+        }
+    }
+ 
+
 }
 </script>
 <style scoped>

@@ -2,11 +2,11 @@
     <div class="body">
       <div class="container">
         <h1 class="login">Login</h1>
-        <form @submit.prevent="submitForm">
+        <form>
           <!-- <input type="text" placeholder="Name" v-model="name"> -->
           <input type="email" placeholder="Email" v-model="email" />
           <input type="password" placeholder="Password" v-model="password" />
-          <button type="submit">Submit</button>
+          <button type="submit" @click="loginUser">Submit</button>
         </form>
       </div>
     </div>
@@ -20,11 +20,15 @@
         password: ''
       };
     },
-    methods: {
-      submitForm() {
+    computed:{
+      loginUser() {
         // Perform form validation and submission logic here
-        console.log('Form submitted:', this.$data);
+        this.$store.dispatch('Form submitted:', this.$data);
       }
+    },
+
+    methods: {
+     
     }
   };
   </script>

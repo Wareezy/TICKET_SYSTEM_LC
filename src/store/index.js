@@ -163,9 +163,9 @@ catch(error){
   
       if (data.token) {
         $cookies.set('token', data.token);
-        $cookies.set('userRole', data.user.userRole)
+        $cookies.set('user_role', data.user.userRole)
         // alert(data.msg);
-        await router.push('/tickets');
+        await router.push('/feedback');
         Swal.fire({
           title: 'Login Successful',
           text: 'User has logged in successfully!',
@@ -216,7 +216,7 @@ catch(error){
       if (result.isConfirmed) {
         // Remove JWT token
         $cookies.remove('token');
-        $cookies.remove('user_Role')
+        $cookies.remove('user_role')
         // Redirect to login page
         router.push('/login');
         setTimeout(()=>{
