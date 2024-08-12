@@ -2,6 +2,7 @@ import { createStore } from 'vuex'
 import axios from 'axios'
 // import router from '@/router'
 import Swal from 'sweetalert2'
+import VueCookies from 'vue-cookies';
 
 const BASE_URL= "https://ticket-system-lc.onrender.com/"
 
@@ -157,15 +158,53 @@ catch(error){
     
     },
     
+    // async loginUser({ commit }, currentUser) {
+    //   try {
+    //     let { data } = await axios.post(BASE_URL + 'login', currentUser);
+    
+    //     if (data.token) {
+    //       $cookies.set('token', data.token);
+    //       $cookies.set('user_role', data.user.user_role)
+    //       // alert(data.msg);
+    //       // await router.push('/dashboard');
+    //       Swal.fire({
+    //         title: 'Login Successful',
+    //         text: 'User has logged in successfully!',
+    //         icon: 'success',
+    //         timer: 1000,
+    //         showConfirmButton: false
+    //       });
+    
+    //       setTimeout(() => {
+    //         window.location.reload();
+    //       }, 1000);
+    //       // window.location.reload();
+    //     } else {
+    //       Swal.fire({
+    //         title: 'Error',
+    //         text: 'Failed to login, password or email is incorrect',
+    //         icon: 'error',
+    //         timer: 1000
+    //       });
+          
+    //       setTimeout(() => {
+    //          window.location.reload();
+    //       }, 3000);
+    
+    //     }
+    //   } catch (error) {
+    //     console.error('Cannot login', error);
+    //     $cookies.remove('token');
+    //   }
+    // }
     async loginUser({ commit }, currentUser) {
       try {
         let { data } = await axios.post(BASE_URL + 'login', currentUser);
     
         if (data.token) {
-          $cookies.set('token', data.token);
-          $cookies.set('user_role', data.user.user_role)
-          // alert(data.msg);
-          // await router.push('/dashboard');
+          VueCookies.set('token', data.token);
+          VueCookies.set('user_role', data.user.user_role);
+    
           Swal.fire({
             title: 'Login Successful',
             text: 'User has logged in successfully!',
@@ -174,10 +213,9 @@ catch(error){
             showConfirmButton: false
           });
     
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
-          // window.location.reload();
+          // setTimeout(() => {
+          //   router.push('/dashboard');
+          // }, 1000);
         } else {
           Swal.fire({
             title: 'Error',
@@ -185,15 +223,20 @@ catch(error){
             icon: 'error',
             timer: 1000
           });
-          
-          setTimeout(() => {
-             window.location.reload();
-          }, 3000);
     
+          setTimeout(() => {
+            window.location.reload();
+          }, 3000);
         }
       } catch (error) {
         console.error('Cannot login', error);
-        $cookies.remove('token');
+        VueCookies.remove('token');
+        Swal.fire({
+          title: 'Error',
+          text: 'An error occurred during the login process.',
+          icon: 'error',
+          showConfirmButton: true
+        });
       }
     }
     ,

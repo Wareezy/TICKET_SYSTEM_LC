@@ -2,7 +2,7 @@
     <div class="body">
       <div class="container">
         <h1 class="login">Login</h1>
-        <form @submit.prevent >
+        <form action="" @submit.prevent >
           <!-- <input type="text" placeholder="Name" v-model="name"> -->
           <input type="email" placeholder="Email" v-model="user_email" />
           <input type="password" placeholder="Password" v-model="user_password" />
@@ -21,14 +21,20 @@
       };
     },
     computed:{
-      loginUser() {
-        // Perform form validation and submission logic here
-        this.$store.dispatch('Form submitted:', this.$data);
-      }
+      // loginUser() {
+      //   // Perform form validation and submission logic here
+      //   this.$store.dispatch('Form submitted:', this.$data);
+      // }
+      user() {
+      return this.$store.state.user;
+    },
     },
 
     methods: {
-     
+        async loginUser(){
+             this.$store.dispatch('loginUser',this.$data);
+          //  await this.$router.push('dashboard')
+        }
     }
   };
   </script>
