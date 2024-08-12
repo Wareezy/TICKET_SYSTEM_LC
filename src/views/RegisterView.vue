@@ -1,48 +1,49 @@
 <template>
     <div class="h-screen flex justify-center items-center">
         <!-- <h1>Register</h1> -->
-        <form action="" class="form px-3 py-6">
+        <form action="" class="form px-3 py-6" @submit.prevent>
             <div class="form-title">
                 <h1 class="lc-themed">Register</h1>
             </div>
             <div class="input-container flex flex-col">
                 <label for="floatingName" class="label">First name</label>
-                <input type="text" name="firstname" id="floatingName" class="input border-lc">
+                <input type="text" name="firstname" id="floatingName" class="input border-lc" v-model="user_name">
             </div>
             <div class=" border-lc-container flex flex-col">
                 <label for="floatingName" class="label">Last name</label>
-                <input type="text" name="firstname" id="floatingName" class="input border-lc">
+                <input type="text" name="firstname" id="floatingName" class="input border-lc" v-model="user_surname">
             </div>
             <div class="input-container flex flex-col">
                 <label for="floatingName" class="label">Email address</label>
-                <input type="text" name="firstname" id="floatingName" class="input border-lc">
+                <input type="email" name="firstname" id="floatingName" class="input border-lc" v-model="user_email" >
             </div>
             <div class="input-container flex flex-col">
                 <label for="floatingName" class="label">Password</label>
-                <input type="text" name="firstname" id="floatingName" class="input border-lc">
+                <input type="password" name="firstname" id="floatingName" class="input border-lc" v-model="user_password" >
             </div>
             <div class="form-footer">
-                <button @click="addUser" class="btn btn-lg bg-lc-red">Register</button>
+                <button type="submit" class="btn btn-lg bg-lc-red" @click="addUser()">Register</button>
             </div>
         </form>
     </div>
 </template>
 <script>
+
 export default {
+    name: 'newUser',
     data(){
         return{
-    firstName:null,
-    lastName:null,
-    email:null,
-    password:null 
-        }
-     
+                user_name: "",
+                user_surname: "",
+                user_email: "",
+                user_password: ""
+            }
     },
 
     methods:{
         async addUser(){
-            await this.$store.dispatch('addUser',this.$data);
-            this.$router.push('/feedback')
+             this.$store.dispatch('addUser',this.$data);
+           await this.$router.push('/login')
         }
     }
  
