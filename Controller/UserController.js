@@ -18,8 +18,11 @@ export default {
     ADD_USER: async (req, res) => {
         try {
             const { user_email, user_password, user_name, user_surname,user_role } = req.body;
-            await addUser(user_email, user_password, user_name, user_surname, user_role);
+            bcrypt.hash(user_password, 10, async (err, hash) => {
+// if (err) throw err;
+            await addUser(user_email, hash, user_name, user_surname, user_role);
             res.send(await getUsers());
+            })
         } catch (error) {
             res.send({ error: error.message, serverRes: 500 });
         }

@@ -5,8 +5,9 @@ import jwt from 'jsonwebtoken'
 import { checkUser,getUser } from '../Model/UserModel.js'
 config()
 
+
 const auth=async(req,res,next)=>{
-    const {user_password,user_email, user_role}=req.body
+    const {user_password,user_email}=req.body
     const hashedPassword=await checkUser(user_email)
     console.log(hashedPassword)
     bcrypt.compare(user_password,hashedPassword,async(err,result)=>{
