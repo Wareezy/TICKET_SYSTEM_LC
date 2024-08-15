@@ -2,30 +2,33 @@
     <div class="container">
       <h1 class="feedback">Complaint</h1>
       <form @submit.prevent="submitForm">
-        <input type="text" placeholder="Title" v-model="title" />
-        <input type="email" placeholder="Message" v-model="message" />
-        <select name="Ticket" id="">
+        <input type="text" placeholder="Title" v-model="complaint" />
+        <input type="email" placeholder="Message" v-model="description" />
+        <select name="Ticket" id="" v-model="ticket">
           <option value="">Pick type of Ticket</option>
           <option value="on-board">On Board</option>
           <option value="off-board">Off Board</option>
           <option value="IT-complaint">IT complaint</option>
         </select>
-        <select name="Urgency" id="">
+        <select name="Urgency" id="" v-model="urgency">
           <option value="">Pick type of urgency</option>
           <option value="urgent">Urgent</option>
           <option value="not-urgent">Not urgent</option>
         </select>
-        <button type="submit">Submit</button>
+        <button type="submit" @click="addTickets()">Submit</button>
       </form>
     </div>
   </template>
   
   <script>
+  import VueCookies from 'vue-cookies';
   export default {
     data() {
       return {
-        title: '',
-        message: '',
+        complaint: '',
+        description: '',
+        ticket: '',
+        urgency: ''
       };
     },
     methods: {
@@ -33,6 +36,17 @@
         // Form submission logic here
         console.log('Form submitted:', this.title, this.message);
       },
+     async  addTickets(){
+        const userID = VueCookies.get('user_id');
+      const task = {
+        complaint: this.complaint,
+        description: this.description,
+        ticket: this.ticket,
+        urgency:this.urgency,
+        user_id: userID
+      };
+    await  this.$store.dispatch('addTickets', task);
+      }
     },
   };
   </script>

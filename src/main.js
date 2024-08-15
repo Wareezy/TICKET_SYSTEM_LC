@@ -16,6 +16,8 @@ head.appendChild(link);
 
 
 
+
+
 createApp(App).use(store).use(router).mount('#app')
 AOS.init({
     offset: 100,

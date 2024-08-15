@@ -10,13 +10,17 @@ axios.defaults.withCredentials=true
 
 export default createStore({
   state: {
-    users:[]
+    users:[],
+    Tickets:[]
   },
   getters: {
   },
   mutations: {
     setUsers(state,data){
       state.users=data
+    },
+    setTickets(state,data){
+      state.Tickets=data
     }
   },
   actions: {
@@ -203,7 +207,8 @@ catch(error){
     
         if (data.token) {
           VueCookies.set('token', data.token);
-          VueCookies.set('user_role', data.user.user_role);
+          let [{ user_id }] = data.user;
+          VueCookies.set('user_id', user_id);
     
           Swal.fire({
             title: 'Login Successful',
@@ -271,7 +276,36 @@ catch(error){
           window.location.reload();
         }
       });
+    },
+    //tickets
+    async addTickets({ commit },payload)
+    {
+      try{
+        let {data}=await axios.post(`${BASE_URL}feedback?user=${payload.user_id}`,payload);
+        console.log(data);
+        commit('setTickets',data);
+        Swal.fire({
+              title: 'Added Successful',
+              text: 'Ticket has been added successfully!',
+              icon:'success',
+              timer: 3000,
+              showConfirmButton: false
+            });
+
     }
+    catch(error) {
+      Swal.fire({
+        title: 'Error',
+        text: 'Failed to add ticket',
+        icon: 'error',
+        timer: 3000
+      });
+      
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+    }
+  }
   },
 
    
