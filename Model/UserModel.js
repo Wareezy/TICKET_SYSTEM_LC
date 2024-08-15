@@ -44,3 +44,10 @@ const [[{user_password}]]=await pool.query(`
     `,[user_email]);
     return user_password
 }
+
+export const getusername = async(user_email)=> {
+    const [result] = await pool.query(`
+    SELECT * FROM user_table WHERE user_email = ?
+    `,[user_email])
+    return result
+}

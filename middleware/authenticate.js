@@ -2,7 +2,7 @@ import {config} from 'dotenv'
 import bcrypt from 'bcrypt'
 import cookieParser from 'cookie-parser'
 import jwt from 'jsonwebtoken'
-import { checkUser,getUser } from '../Model/UserModel.js'
+import { checkUser,getusername } from '../Model/UserModel.js'
 config()
 
 
@@ -14,7 +14,7 @@ const auth=async(req,res,next)=>{
 
         if(err) throw err
         if(result ===true){
-            let currentUser=await getUser(user_email)
+            let currentUser=await getusername(user_email)
 
             console.log(user_email,'This is above the token')
             const token=jwt.sign({currentUser:currentUser},process.env.SECRET_KEY,{expiresIn:'1h'})
