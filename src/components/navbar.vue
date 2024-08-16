@@ -22,7 +22,7 @@
                         <router-link class="nav-link text-black" to="/admin">Tickets</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link text-black" to="/dashboard">Dashboard</router-link>
+                        <router-link class="nav-link text-black" to="/dashboard" v-if="isAdmin" >Dashboard</router-link>
                     </li>
                     <li class="nav-item">
                         <router-link class="nav-link text-black" to="/register">Register</router-link>
@@ -45,9 +45,14 @@
 </template>
 
 <script>
+  import VueCookies from 'vue-cookies';
 export default {
   // Your Vue.js component logic here
-
+computed : {
+    isAdmin() {
+      return VueCookies.get('user_role') === 'admin';
+    }
+},
   methods: {
     async logOut(){
         this.$store.dispatch('logOut');

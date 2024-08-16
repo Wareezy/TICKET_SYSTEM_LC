@@ -33,6 +33,11 @@ const routes = [
     component: () => import('../views/DashboardView.vue')
   },
   {
+    path: '/dashboard:id',
+    name: 'DashboardSingle',
+    component: () => import('../views/DashboardSingle.vue')
+  },
+  {
     path: '/register',
     name: 'register',
     component: () => import('../views/RegisterView.vue')

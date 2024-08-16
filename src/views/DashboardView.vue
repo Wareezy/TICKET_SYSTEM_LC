@@ -1,9 +1,9 @@
 <template>
   <h1>WELCOME TO THE DASHBOARD</h1>
-  <spinnerComp v-if="loadingInventory"></spinnerComp>
+  <!-- <spinnerComp v-if="loadingInventory"></spinnerComp> -->
   
   <h2>TICKETS TABLE</h2>
-  <div class="table-responsive" v-if="!$store.state.singleTicket">
+  <div class="table-responsive">
     <table class="table">
       <thead id="head">
         <tr>
@@ -23,23 +23,14 @@
           <td>{{ item.ticket }}</td>
           <td>{{ item.urgency }}</td>
           <td>{{ item.user_id }}</td>
-          <td><button @click="viewTicket(item.ticket_id)">View Ticket</button></td>
-          <td><button @click="resolveTicket(item.ticket_id)">Resolve Ticket</button></td>    
+          <td>
+            <!-- <button @click="viewTicket(item.ticket_id)">View Ticket</button> -->
+            <router-link @click="viewTicket(item.ticket_id)" :to="{ name: 'DashboardSingle', params: { id: item.ticket_id }} " class="btn btn-dark">View Ticket</router-link>
+          </td>
+          <td><button @click="resolveTicket(item.ticket_id)" class="btn btn-dark">Resolve Ticket</button></td>    
         </tr>
       </tbody>
     </table>
-  </div>
-
-  <!-- Display the selected ticket in a card format -->
-  <div v-if="$store.state.singleTicket" class="ticket-card">
-    <h3>Ticket Details</h3>
-    <p><strong>TICKET ID:</strong> {{ $store.state.singleTicket.ticket_id }}</p>
-    <p><strong>COMPLAINT:</strong> {{ $store.state.singleTicket.complaint }}</p>
-    <p><strong>DESCRIPTION:</strong> {{ $store.state.singleTicket.description }}</p>
-    <p><strong>TICKET:</strong> {{ $store.state.singleTicket.ticket }}</p>
-    <p><strong>URGENCY:</strong> {{ $store.state.singleTicket.urgency }}</p>
-    <p><strong>USER ID:</strong> {{ $store.state.singleTicket.user_id }}</p>
-    <button @click="clearTicket">Back to Tickets</button>
   </div>
 </template>
 
@@ -56,10 +47,7 @@ export default {
   },
   computed: {
     getTickets() {
-      this.loadingInventory = true;
-      return this.$store.dispatch('getTickets').then(() => {
-        this.loadingInventory = false;
-      });
+     this.$store.dispatch('getTickets')
     },
   },
   methods: {
@@ -72,6 +60,7 @@ export default {
   },
   mounted() {
     this.getTickets;
+    // this.viewTicket
   },
 };
 </script>
@@ -84,3 +73,4 @@ export default {
   background-color: #f9f9f9;
 }
 </style>
+x``

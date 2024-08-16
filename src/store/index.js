@@ -11,7 +11,7 @@ export default createStore({
   state: {
     users: [],
     Tickets: [],
-    singleTicket: null
+    singleTicket: []
   },
   getters: {},
   mutations: {
@@ -64,9 +64,9 @@ export default createStore({
       }
     },
 
-    async getTicket({ commit }, ticket_id) {
+    async getTicket({ commit }, id) {
       try {
-        let { data } = await axios.get(BASE_URL + 'feedback/' + ticket_id);
+        let { data } = await axios.get(BASE_URL + 'feedback/' + id);
         console.log('Fetched single ticket:', data); // Debugging line
         commit('setSingleTicket', data);
       } catch (error) {
@@ -178,6 +178,8 @@ export default createStore({
           VueCookies.set('token', data.token);
           let [{ user_id }] = data.user;
           VueCookies.set('user_id', user_id);
+          let [{user_role}] = data.user;
+          VueCookies.set('user_role', user_role);
 
           Swal.fire({
             title: 'Login Successful',
