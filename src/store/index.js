@@ -2,6 +2,7 @@ import { createStore } from 'vuex'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import VueCookies from 'vue-cookies';
+import router from '@/router' // Make sure the path is correct
 
 const BASE_URL = "https://ticket-system-lc.onrender.com/"
 
@@ -74,14 +75,13 @@ export default createStore({
       }
     },
 
-
     async getProfile({ commit }, user_email) {
       try {
-        let encode = $cookies.get('token');
+        let encode = VueCookies.get('token');
         encode = encode.split('.')[1];
         const { currentUser } = JSON.parse(window.atob(encode));
         console.log(currentUser.userRole);
-        $cookies.set('user_role', currentUser.user_role)
+        VueCookies.set('user_role', currentUser.user_role)
         commit('setCurrentUser', decodedToken.currentUser);
       } catch (error) {
         console.error('Failed to retrieve user profile', error);
@@ -189,10 +189,13 @@ export default createStore({
             showConfirmButton: false
           });
 
-          // Uncomment this if you want to redirect after login
-          // setTimeout(() => {
-          //   router.push('/dashboard');
-          // }, 1000);
+          setTimeout(() => {
+            if (user_role === 'admin') {
+              router.push('/dashboard'); // Admin redirect
+            } else {
+              router.push('/feedback'); // User redirect
+            }
+          }, 1000);
         } else {
           Swal.fire({
             title: 'Error',
@@ -235,6 +238,8 @@ export default createStore({
           VueCookies.remove('token');
           VueCookies.remove('user_role');
           VueCookies.remove('user_id');
+          router.push('/systemabout') // Adjust the route as needed
+          
           setTimeout(() => {
             window.location.reload();
           }, 10);
