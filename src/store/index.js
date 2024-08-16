@@ -45,6 +45,26 @@ catch(error){
 }, 3000);
 }
     },
+    //getting tickets
+    async getTickets({commit})
+    {
+try{
+  let {data}=await axios.get(BASE_URL+'feedback')
+  console.log(data);
+  commit('setTickets', data);
+}
+catch(error){
+ Swal.fire({
+  title:'Error',
+  text: 'Failed to retrieve tickets',
+  icon: 'error',
+  timer: 3000
+ });
+ setTimeout(() => {
+  window.location.reload();
+}, 3000);
+}
+    },
     async getProfile({ commit }, user_email) {
       try {
         let encode = $cookies.get('token');
