@@ -247,35 +247,35 @@ catch(error){
     ,
     
     async logOut(context){
-      let cookies=$cookies.keys()
-      console.log(cookies)
-      // $cookies.remove('jwt')
-        
-      
-      Swal.fire({
+    // Log existing cookies (use VueCookies.get to access specific cookies if needed)
+    const token = VueCookies.get('token');
+    const userRole = VueCookies.get('user_role');
+    console.log({ token, userRole });
+
+    Swal.fire({
         title: 'Are you sure?',
         text: 'You will be logged out',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: 'rgb(71, 98, 218)',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, log me out!'
-      }).then((result) => {
+        confirmButtonColor: 'rgb(171, 204, 55)',
+        cancelButtonColor: '#000',
+        confirmButtonText: 'Yes, log me out!',
+    }).then((result) => {
         if (result.isConfirmed) {
-          // Remove JWT token
-          $cookies.remove('token');
-          $cookies.remove('user_role')
-          // Redirect to login page
-          router.push('/login');
-          setTimeout(()=>{
-              window.location.reload();
-          },10)
-        
+            // Remove JWT token and other cookies
+            VueCookies.remove('token');
+            VueCookies.remove('user_role');
+            VueCookies.remove('user_id');
+            // Redirect to login page
+            // router.push('/login');
+            setTimeout(() => {
+                window.location.reload();
+            }, 10);
         } else {
-          // Reload the page if Cancel is clicked
-          window.location.reload();
+            // Reload the page if Cancel is clicked
+            window.location.reload();
         }
-      });
+    });
     },
     //tickets
     async addTickets({ commit },payload)
