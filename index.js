@@ -30,6 +30,16 @@ app.use('/test', (req, res) => {
 app.use('/user', userRouter)
 app.use('/feedback', ticketRouter)
 app.use('/login',auth,loginRouter)
+
+
+app.delete('/logout', (req, res) => {
+    // Clear the 'jwt' cookie
+    res.clearCookie('token');
+    
+    res.send({
+      msg: 'You have been logged out'
+    });
+  });
 // do not delete even if you dont understand the code  below
 
 app.get('/export-data', async (req, res) => {
