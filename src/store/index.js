@@ -1,156 +1,150 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
-// import router from '@/router'
 import Swal from 'sweetalert2'
 import VueCookies from 'vue-cookies';
 
-const BASE_URL= "https://ticket-system-lc.onrender.com/"
+const BASE_URL = "https://ticket-system-lc.onrender.com/"
 
-axios.defaults.withCredentials=true
+axios.defaults.withCredentials = true
 
 export default createStore({
   state: {
-    users:[],
-    Tickets:[]
+    users: [],
+    Tickets: [],
+    singleTicket: null
   },
-  getters: {
-  },
+  getters: {},
   mutations: {
-    setUsers(state,data){
-      state.users=data
+    setUsers(state, data) {
+      state.users = data;
     },
-    setTickets(state,data){
-      state.Tickets=data
+    setTickets(state, data) {
+      state.Tickets = data;
+    },
+    setSingleTicket(state, data) {
+      state.singleTicket = data;
     }
   },
   actions: {
+    async getUsers({ commit }) {
+      try {
+        let { data } = await axios.get(BASE_URL + 'user');
+        console.log(data);
+        commit('setUsers', data);
+      } catch (error) {
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to retrieve users',
+          icon: 'error',
+          timer: 3000
+        });
 
-    async getUsers({commit})
-    {
-try{
-  let {data}=await axios.get(BASE_URL+'user')
-  console.log(data);
-  commit('setUsers', data);
-}
-catch(error){
- Swal.fire({
-  title:'Error',
-  text: 'Failed to retrieve users',
-  icon: 'error',
-  timer: 3000
- });
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+      }
+    },
 
- setTimeout(() => {
-  window.location.reload();
-}, 3000);
-}
+    async getTickets({ commit }) {
+      try {
+        let { data } = await axios.get(BASE_URL + 'feedback');
+        console.log(data);
+        commit('setTickets', data);
+      } catch (error) {
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to retrieve tickets',
+          icon: 'error',
+          timer: 3000
+        });
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+      }
     },
-    //getting tickets
-    async getTickets({commit})
-    {
-try{
-  let {data}=await axios.get(BASE_URL+'feedback')
-  console.log(data);
-  commit('setTickets', data);
-}
-catch(error){
- Swal.fire({
-  title:'Error',
-  text: 'Failed to retrieve tickets',
-  icon: 'error',
-  timer: 3000
- });
- setTimeout(() => {
-  window.location.reload();
-}, 3000);
-}
+
+    async getTicket({ commit }, ticket_id) {
+      try {
+        let { data } = await axios.get(BASE_URL + 'feedback/' + ticket_id);
+        console.log('Fetched single ticket:', data); // Debugging line
+        commit('setSingleTicket', data);
+      } catch (error) {
+        console.error('Cannot get the single ticket', error);
+      }
     },
+
+
     async getProfile({ commit }, user_email) {
       try {
         let encode = $cookies.get('token');
         encode = encode.split('.')[1];
-        const {currentUser} = JSON.parse(window.atob(encode));
+        const { currentUser } = JSON.parse(window.atob(encode));
         console.log(currentUser.userRole);
         $cookies.set('user_role', currentUser.user_role)
         commit('setCurrentUser', decodedToken.currentUser);
-        // Update the currentUser state
       } catch (error) {
         console.error('Failed to retrieve user profile', error);
       }
     },
-    
-  
-    async addUser({commit},newUser){
-      try{
-        let {data}=await axios.post( BASE_URL+ 'user/' , newUser);
+
+    async addUser({ commit }, newUser) {
+      try {
+        let { data } = await axios.post(BASE_URL + 'user/', newUser);
         console.log(data);
-        commit('setUsers',data);
+        commit('setUsers', data);
         Swal.fire({
-              title: 'Added Successful',
-              text: 'User has been added successfully!',
-              icon: 'success',
-              timer: 3000,
-              showConfirmButton: false
-            });
-    
-            // setTimeout(() => {
-            //   window.location.reload();
-            // }, 3000);
-      }
-      catch(error)
-      {
+          title: 'Added Successful',
+          text: 'User has been added successfully!',
+          icon: 'success',
+          timer: 3000,
+          showConfirmButton: false
+        });
+      } catch (error) {
         Swal.fire({
           title: 'Error',
           text: 'Failed to add user',
           icon: 'error',
           timer: 3000
         });
-        
+
         setTimeout(() => {
           window.location.reload();
         }, 3000);
-    
       }
-      // window.location.reload()
     },
-  
-    
-    async delUser({commit},id){
-      try{
+
+    async delUser({ commit }, id) {
+      try {
         await axios.delete(BASE_URL + '/user/' + id)
-         Swal.fire({
-              title: 'Deleted Successful',
-              text: 'User has been deleted successfully!',
-              icon: 'success',
-              timer: 3000,
-              showConfirmButton: false
-            });
-    
-            setTimeout(() => {
-              window.location.reload();
-            }, 3000);
-      }
-      catch(error){
+        Swal.fire({
+          title: 'Deleted Successful',
+          text: 'User has been deleted successfully!',
+          icon: 'success',
+          timer: 3000,
+          showConfirmButton: false
+        });
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+      } catch (error) {
         Swal.fire({
           title: 'Error',
           text: 'Failed to delete user',
           icon: 'error',
           timer: 3000
         });
-        
+
         setTimeout(() => {
           window.location.reload();
         }, 3000);
-    
       }
-    }
-    
-    ,
-  
-    
-    async updateUser({commit},update){
-      try{
-        await axios.patch(BASE_URL + '/user/' + update.id,update)
+    },
+
+    async updateUser({ commit }, update) {
+      try {
+        await axios.patch(BASE_URL + '/user/' + update.id, update)
         Swal.fire({
           title: 'Update Successful',
           text: 'User has been update successfully!',
@@ -158,78 +152,33 @@ catch(error){
           timer: 3000,
           showConfirmButton: false
         });
-    
+
         setTimeout(() => {
           window.location.reload();
         }, 3000);
-    
+      } catch (error) {
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to update user',
+          icon: 'error',
+          timer: 3000
+        });
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
       }
-    
-      catch(error)
-    {
-    
-      Swal.fire({
-        title: 'Error',
-        text: 'Failed to update user',
-        icon: 'error',
-        timer: 3000
-      });
-      
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000);
-    }
-    
     },
-    
-    // async loginUser({ commit }, currentUser) {
-    //   try {
-    //     let { data } = await axios.post(BASE_URL + 'login', currentUser);
-    
-    //     if (data.token) {
-    //       $cookies.set('token', data.token);
-    //       $cookies.set('user_role', data.user.user_role)
-    //       // alert(data.msg);
-    //       // await router.push('/dashboard');
-    //       Swal.fire({
-    //         title: 'Login Successful',
-    //         text: 'User has logged in successfully!',
-    //         icon: 'success',
-    //         timer: 1000,
-    //         showConfirmButton: false
-    //       });
-    
-    //       setTimeout(() => {
-    //         window.location.reload();
-    //       }, 1000);
-    //       // window.location.reload();
-    //     } else {
-    //       Swal.fire({
-    //         title: 'Error',
-    //         text: 'Failed to login, password or email is incorrect',
-    //         icon: 'error',
-    //         timer: 1000
-    //       });
-          
-    //       setTimeout(() => {
-    //          window.location.reload();
-    //       }, 3000);
-    
-    //     }
-    //   } catch (error) {
-    //     console.error('Cannot login', error);
-    //     $cookies.remove('token');
-    //   }
-    // }
+
     async loginUser({ commit }, currentUser) {
       try {
         let { data } = await axios.post(BASE_URL + 'login', currentUser);
-    
+
         if (data.token) {
           VueCookies.set('token', data.token);
           let [{ user_id }] = data.user;
           VueCookies.set('user_id', user_id);
-    
+
           Swal.fire({
             title: 'Login Successful',
             text: 'User has logged in successfully!',
@@ -237,7 +186,8 @@ catch(error){
             timer: 1000,
             showConfirmButton: false
           });
-    
+
+          // Uncomment this if you want to redirect after login
           // setTimeout(() => {
           //   router.push('/dashboard');
           // }, 1000);
@@ -248,7 +198,7 @@ catch(error){
             icon: 'error',
             timer: 1000
           });
-    
+
           setTimeout(() => {
             window.location.reload();
           }, 3000);
@@ -263,16 +213,14 @@ catch(error){
           showConfirmButton: true
         });
       }
-    }
-    ,
-    
-    async logOut(context){
-    // Log existing cookies (use VueCookies.get to access specific cookies if needed)
-    const token = VueCookies.get('token');
-    const userRole = VueCookies.get('user_role');
-    console.log({ token, userRole });
+    },
 
-    Swal.fire({
+    async logOut(context) {
+      const token = VueCookies.get('token');
+      const userRole = VueCookies.get('user_role');
+      console.log({ token, userRole });
+
+      Swal.fire({
         title: 'Are you sure?',
         text: 'You will be logged out',
         icon: 'warning',
@@ -280,56 +228,46 @@ catch(error){
         confirmButtonColor: 'rgb(171, 204, 55)',
         cancelButtonColor: '#000',
         confirmButtonText: 'Yes, log me out!',
-    }).then((result) => {
+      }).then((result) => {
         if (result.isConfirmed) {
-            // Remove JWT token and other cookies
-            VueCookies.remove('token');
-            VueCookies.remove('user_role');
-            VueCookies.remove('user_id');
-            // Redirect to login page
-            // router.push('/login');
-            setTimeout(() => {
-                window.location.reload();
-            }, 10);
-        } else {
-            // Reload the page if Cancel is clicked
+          VueCookies.remove('token');
+          VueCookies.remove('user_role');
+          VueCookies.remove('user_id');
+          setTimeout(() => {
             window.location.reload();
+          }, 10);
+        } else {
+          window.location.reload();
         }
-    });
-    },
-    //tickets
-    async addTickets({ commit },payload)
-    {
-      try{
-        let {data}=await axios.post(`${BASE_URL}feedback?user=${payload.user_id}`,payload);
-        console.log(data);
-        commit('setTickets',data);
-        Swal.fire({
-              title: 'Added Successful',
-              text: 'Ticket has been added successfully!',
-              icon:'success',
-              timer: 3000,
-              showConfirmButton: false
-            });
-
-    }
-    catch(error) {
-      Swal.fire({
-        title: 'Error',
-        text: 'Failed to add ticket',
-        icon: 'error',
-        timer: 3000
       });
-      
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000);
+    },
+
+    async addTickets({ commit }, payload) {
+      try {
+        let { data } = await axios.post(`${BASE_URL}feedback?user=${payload.user_id}`, payload);
+        console.log(data);
+        commit('setTickets', data);
+        Swal.fire({
+          title: 'Added Successful',
+          text: 'Ticket has been added successfully!',
+          icon: 'success',
+          timer: 3000,
+          showConfirmButton: false
+        });
+      } catch (error) {
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to add ticket',
+          icon: 'error',
+          timer: 3000
+        });
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+      }
     }
-  }
   },
 
-   
-
-  modules: {
-  }
+  modules: {}
 })
