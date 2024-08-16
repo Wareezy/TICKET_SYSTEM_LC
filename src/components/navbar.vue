@@ -30,7 +30,7 @@
                 </ul>
                 <ul class="navbar-nav ms-auto right-align">
                     <li class="nav-item">
-                        <router-link class="nav-link text-black" to="/dashboard">Log Out</router-link>
+                        <router-link class="nav-link text-black" to="/dashboard" @click="logOut()" >Log Out</router-link>
                     </li>
                     <li class="nav-item">
                         <router-link class="nav-link text-black" to="/dashboard">Logged User</router-link>
@@ -44,6 +44,12 @@
 <script>
 export default {
   // Your Vue.js component logic here
+
+  methods: {
+    async logOut(){
+        this.$store.dispatch('logOut');
+    }
+  },
 }
 </script>
 
