@@ -27,6 +27,9 @@
                     <li class="nav-item">
                         <router-link class="nav-link text-black" to="/register">Register</router-link>
                     </li>
+                    <li class="nav-item">
+                        <router-link class="nav-link text-black" to="/user">User</router-link>
+                    </li>
                 </ul>
                 <ul class="navbar-nav ms-auto right-align">
                     <li class="nav-item">
