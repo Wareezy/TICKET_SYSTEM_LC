@@ -27,7 +27,7 @@
             <!-- <button @click="viewTicket(item.ticket_id)">View Ticket</button> -->
             <router-link @click="viewTicket(item.ticket_id)" :to="{ name: 'DashboardSingle', params: { id: item.ticket_id }} " class="btn btn-dark">View Ticket</router-link>
           </td>
-          <td><button @click="resolveTicket(item.ticket_id)" class="btn btn-dark">Resolve Ticket</button></td>    
+          <td><button @click="delTicket(item.ticket_id)" class="btn btn-dark">Resolve Ticket</button></td>    
           <td><button @click="downloadToCSV()" class="btn btn-dark">CSV</button></td>    
         </tr>
       </tbody>
@@ -67,6 +67,10 @@ export default {
       link.href = URL.createObjectURL(blob);
       link.download = 'ticket.csv';
       link.click();
+    },
+
+    delTicket(ticket_id){
+      this.$store.dispatch('delTicket',ticket_id)
     }
   },
   mounted() {

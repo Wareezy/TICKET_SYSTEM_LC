@@ -74,7 +74,31 @@ export default createStore({
         console.error('Cannot get the single ticket', error);
       }
     },
+async delTicket({commit},ticket_id){
+try{
+  let {data}=await axios.delete(BASE_URL + 'feedback/' + ticket_id)
+  console.log('all tickets:',data)
+  Swal.fire({
+    title:'Product Delete Successful',
+    text:'Product has been deleted successfully',
+    icon:'success',
+    timer: 3000,
+    showConfirmButton: false
+  });
+  setTimeout(()=>{
+    window.location.reload();
+  },3000);
+}
 
+catch(error){
+  Swal.fire({
+    title: 'Error',
+    text:'Failed to delete product',
+    icon: 'error',
+    timer: 3000
+  })
+}
+},
     async getProfile({ commit }, user_email) {
       try {
         let encode = VueCookies.get('token');
