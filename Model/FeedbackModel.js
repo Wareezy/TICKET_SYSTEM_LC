@@ -24,13 +24,13 @@ export const addComplaint = async (complaint, description, ticket, urgency,user_
 }
 
 export const updateComplaint = async (complaint, description, ticket, urgency,ticket_id) => {
-    const [ targeted_user ] = await pool.query(`
+    const [ complaint ] = await pool.query(`
         UPDATE ticket_table SET complaint = ?, description = ?, ticket = ?, urgency = ? WHERE ticket_id = ?
     `, [complaint, description, ticket, urgency, ticket_id]);
 }
 
 export const deleteComplaint = async(ticket_id) => {
-    const [ user ] = await pool.query(`
+    const [ complaint ] = await pool.query(`
         DELETE FROM ticket_table WHERE ticket_id = ?
-    `, [user_id])
+    `, [ticket_id])
 }
