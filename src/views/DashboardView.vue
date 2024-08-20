@@ -28,6 +28,7 @@
             <router-link @click="viewTicket(item.ticket_id)" :to="{ name: 'DashboardSingle', params: { id: item.ticket_id }} " class="btn btn-dark">View Ticket</router-link>
           </td>
           <td><button @click="resolveTicket(item.ticket_id)" class="btn btn-dark">Resolve Ticket</button></td>    
+          <td><button @click="downloadToCSV()" class="btn btn-dark">CSV</button></td>    
         </tr>
       </tbody>
     </table>
@@ -57,6 +58,16 @@ export default {
     clearTicket() {
       this.$store.commit('setSingleTicket', null);
     },
+    downloadToCSV() {
+      const headers = Object.keys(this.$store.state.Tickets);
+      const rows = [headers].concat(this.$store.state.Tickets.map(row => Object.values(row)));
+      const csvContent = rows.map(row => row.join(',')).join('\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'ticket.csv';
+      link.click();
+    }
   },
   mounted() {
     this.getTickets;
