@@ -48,7 +48,7 @@ export const updateComplaint = async (complaint, description, urgency, user_id, 
 
 
 export const deleteComplaint = async(ticket_id) => {
-    const [ complaint ] = await pool.query(`
+    const [ Delete_complaint ] = await pool.query(`
         DELETE FROM ticket_table WHERE ticket_id = ?
     `, [ticket_id])
 }
