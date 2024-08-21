@@ -31,11 +31,11 @@
           <form @submit.prevent="submitForm">
             <h1 class="feedback">ONBOARDING</h1>
             <!-- Different form fields for Form 2 -->
-            <input type="text" placeholder="Full Name" v-model="field1" />
-            <input type="text" placeholder="Official Title" v-model="field2" />
-            <input type="text" placeholder="ID number" v-model="field2" />
-            <input type="text" placeholder="first working day" v-model="field2" />
-            <select name="Ticket" id="" v-model="ticket">
+            <input type="text" placeholder="Full Name" v-model="full_name" />
+            <input type="text" placeholder="Official Title" v-model="official_title" />
+            <input type="text" placeholder="ID number" v-model="ID_number" />
+            <input type="text" placeholder="first working day" v-model="first_working_day" />
+            <select name="Department" id="" v-model="department">
               <option value="">Within department will you be working?</option>
               <option value="on-board">Health 4 Life</option>
               <option value="off-board">Wellness</option>
@@ -52,7 +52,7 @@
               <option value="IT-complaint">Director</option>
             </select>
 
-            <select name="Ticket" id="" v-model="ticket">
+            <select name="Device" id="" v-model="device">
               <option value="">Which device/s will the staff member require?</option>
               <option value="on-board">Desktop</option>
               <option value="off-board">Laptop</option>
@@ -61,7 +61,7 @@
               <option value="IT-complaint">None</option>
             </select>
 
-            <select name="Ticket" id="" v-model="ticket">
+            <select name="Platform" id="" v-model="platform">
               <option value="">Which platforms would the new staff member need access to?</option>
               <option value="on-board">Life Choices email</option>
               <option value="off-board">Slack</option>
@@ -72,7 +72,7 @@
               <option value="IT-complaint">hr.my</option>
             </select>
 
-            <select name="Ticket" id="" v-model="ticket">
+            <select name="Access" id="" v-model="access">
               <option value="">Is Admin access required on any of the following platforms?</option>
               <option value="on-board">PaperCut</option>
               <option value="off-board">Microsoft Workspace</option>
@@ -96,7 +96,7 @@
             <!-- Different form fields for Form 3 -->
             <input type="text" placeholder="Full Name" v-model="field3" />
             <input type="text" placeholder="Last working day (dd/mm/yyyy)?" v-model="field4" />
-            <select name="Ticket" id="" v-model="ticket">
+            <select name="Device_Off" id="" v-model="device_Off">
               <option value="">Which device/s will the staff member be returning?</option>
               <option value="on-board">Desktop</option>
               <option value="off-board">Laptop</option>
@@ -133,10 +133,15 @@ export default {
       description: '',
       ticket_status:'',
       urgency: '',
-      field1: '',
-      field2: '',
-      field3: '',
-      field4: ''
+      full_name: '',
+      official_title: '',
+      ID_number: '',
+      first_working_day: '',
+      department:'',
+      device:'',
+      platform:'',
+access:'',
+device_Off:''
     };
   },
   methods: {
