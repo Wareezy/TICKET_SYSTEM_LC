@@ -10,11 +10,12 @@
             <h1 class="feedback">IT Complaint</h1>
             <input type="text" placeholder="Title" v-model="complaint" />
             <input type="email" placeholder="Message" v-model="description" />
-            <select name="Ticket" id="" v-model="ticket">
-              <option value="">Pick type of Ticket</option>
-              <option value="on-board">On Board</option>
-              <option value="off-board">Off Board</option>
-              <option value="IT-complaint">IT complaint</option>
+            <input type="email" placeholder="Ticket Assignment" v-model="ticket_assignment" />
+            <select name="Status" id="" v-model="ticket_status">
+              <option value="">Ticket status</option>
+              <option value="Unattended">Unattended</option>
+              <option value="In_Progress">In Progress</option>
+              <option value="Completed">Completed</option>
             </select>
             <select name="Urgency" id="" v-model="urgency">
               <option value="">Pick type of urgency</option>
@@ -130,7 +131,7 @@ export default {
     return {
       complaint: '',
       description: '',
-      ticket: '',
+      ticket_status:'',
       urgency: '',
       field1: '',
       field2: '',
