@@ -1,4 +1,4 @@
-import { pool } from "../Config/config.js";
+import { pool } from '../Config/config.js'
 
 export const getComplaints = async () => {
     const [ complaints ] = await pool.query(`
@@ -15,19 +15,37 @@ export const getComplaint = async (ticket_id) => {
     return complaint;
 };
 
-export const addComplaint = async (complaint, description, ticket, urgency,user_id) => {
+
+export const addComplaint = async (complaint, description, urgency,user_id,ID,first_work,devices,platforms,last_day,return_device,fullname) => {
     const [ insertedComplaint ] = await pool.query(`
-        INSERT INTO ticket_table (complaint, description, ticket, urgency,user_id) VALUES (?, ?, ?, ?,?)
-    `,[complaint, description, ticket, urgency,user_id]);
+        INSERT INTO ticket_table (complaint, description, urgency,user_id,ID,first_work,devices,platforms,last_day,return_device,fullname) VALUES (?, ?, ?, ?,?,?,?,?,?,?,?)
+    `,[complaint, description, urgency,user_id,ID,first_work,devices,platforms,last_day,return_device,fullname]);
 
     return insertedComplaint.insertId;
 }
+export const updateComplaint = async (complaint, description, urgency, user_id, ID, first_work, devices, platforms, last_day, return_device, fullname, ticket_id) => {
+    const [result] = await pool.query(`
+        UPDATE ticket_table
+        SET 
+            complaint = ?, 
+            description = ?, 
+            urgency = ?, 
+            user_id = ?, 
+            ID = ?, 
+            first_work = ?, 
+            devices = ?, 
+            platforms = ?, 
+            last_day = ?, 
+            return_device = ?, 
+            fullname = ?
+        WHERE 
+            ticket_id = ?
+    `, [complaint, description, urgency, user_id, ID, first_work, devices, platforms, last_day, return_device, fullname, ticket_id]);
+    
+    return result;
+};
 
-export const updateComplaint = async (complaint, description, ticket, urgency,ticket_id) => {
-    const [ complaint ] = await pool.query(`
-        UPDATE ticket_table SET complaint = ?, description = ?, ticket = ?, urgency = ? WHERE ticket_id = ?
-    `, [complaint, description, ticket, urgency, ticket_id]);
-}
+
 
 export const deleteComplaint = async(ticket_id) => {
     const [ complaint ] = await pool.query(`
