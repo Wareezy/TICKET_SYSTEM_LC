@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-   
     <div id="formCarousel" class="carousel slide" data-bs-interval="false">
       <div class="carousel-inner">
 
@@ -9,9 +8,9 @@
           <form @submit.prevent="submitForm"> 
             <h1 class="feedback">IT Complaint</h1>
             <input type="text" placeholder="Title" v-model="complaint" />
-            <input type="email" placeholder="Message" v-model="description" />
-            <input type="email" placeholder="Ticket Assignment" v-model="ticket_assignment" />
-            <select name="Status" id="" v-model="ticket_status">
+            <input type="text" placeholder="Message" v-model="description" />
+            <input type="text" placeholder="Ticket Assignment" v-model="assignment" />
+            <select name="Status" id="" v-model="status">
               <option value="">Ticket status</option>
               <option value="Unattended">Unattended</option>
               <option value="In_Progress">In Progress</option>
@@ -31,58 +30,58 @@
           <form @submit.prevent="submitForm">
             <h1 class="feedback">ONBOARDING</h1>
             <!-- Different form fields for Form 2 -->
-            <input type="text" placeholder="Full Name" v-model="full_name" />
+            <input type="text" placeholder="Full Name" v-model="fullname" />
             <input type="text" placeholder="Official Title" v-model="official_title" />
-            <input type="text" placeholder="ID number" v-model="ID_number" />
-            <input type="text" placeholder="first working day" v-model="first_working_day" />
+            <input type="text" placeholder="ID number" v-model="ID" />
+            <input type="text" placeholder="First working day" v-model="first_work" />
             <select name="Department" id="" v-model="department">
               <option value="">Within department will you be working?</option>
-              <option value="on-board">Health 4 Life</option>
-              <option value="off-board">Wellness</option>
-              <option value="IT-complaint">Family Affairs</option>
-              <option value="IT-complaint">Learders' Quest</option>
-              <option value="IT-complaint">M&E</option>
-              <option value="IT-complaint">Finance</option>
-              <option value="IT-complaint">Fundraising</option>
-              <option value="IT-complaint">Operations</option>
-              <option value="IT-complaint">Academy</option>
-              <option value="IT-complaint">Placements</option>
-              <option value="IT-complaint">Green Solar</option>
-              <option value="IT-complaint">LC Studio</option>
-              <option value="IT-complaint">Director</option>
+              <option value="Health 4 Life">Health 4 Life</option>
+              <option value="Wellness">Wellness</option>
+              <option value="Family Affairs">Family Affairs</option>
+              <option value="Leaders' Quest">Leaders' Quest</option>
+              <option value="M&E">M&E</option>
+              <option value="Finance">Finance</option>
+              <option value="Fundraising">Fundraising</option>
+              <option value="Operations">Operations</option>
+              <option value="Academy">Academy</option>
+              <option value="Placements">Placements</option>
+              <option value="Green Solar">Green Solar</option>
+              <option value="LC Studio">LC Studio</option>
+              <option value="Director">Director</option>
             </select>
 
             <select name="Device" id="" v-model="device">
               <option value="">Which device/s will the staff member require?</option>
-              <option value="on-board">Desktop</option>
-              <option value="off-board">Laptop</option>
-              <option value="IT-complaint">Tablet</option>
-              <option value="IT-complaint">Cellphone</option>
-              <option value="IT-complaint">None</option>
+              <option value="Desktop">Desktop</option>
+              <option value="Laptop">Laptop</option>
+              <option value="Tablet">Tablet</option>
+              <option value="Cellphone">Cellphone</option>
+              <option value="None">None</option>
             </select>
 
             <select name="Platform" id="" v-model="platform">
               <option value="">Which platforms would the new staff member need access to?</option>
-              <option value="on-board">Life Choices email</option>
-              <option value="off-board">Slack</option>
-              <option value="IT-complaint">Microsoft Cloud</option>
-              <option value="IT-complaint">Printer Access</option>
-              <option value="IT-complaint">Snipe-IT</option>
-              <option value="IT-complaint">Click Up</option>
-              <option value="IT-complaint">hr.my</option>
+              <option value="Life Choices email">Life Choices email</option>
+              <option value="Slack">Slack</option>
+              <option value="Microsoft Cloud">Microsoft Cloud</option>
+              <option value="Printer Access">Printer Access</option>
+              <option value="Snipe-IT">Snipe-IT</option>
+              <option value="Click Up">Click Up</option>
+              <option value="hr.my">hr.my</option>
             </select>
 
             <select name="Access" id="" v-model="access">
               <option value="">Is Admin access required on any of the following platforms?</option>
-              <option value="on-board">PaperCut</option>
-              <option value="off-board">Microsoft Workspace</option>
-              <option value="IT-complaint">CCTV</option>
-              <option value="IT-complaint">Remote access to server</option>
-              <option value="IT-complaint">UniFi Wifi and Network</option>
-              <option value="IT-complaint">Google Workspace</option>
-              <option value="IT-complaint">Snipe-IT</option>
-              <option value="IT-complaint">HR.my</option>
-              <option value="IT-complaint">No admin access required</option>
+              <option value="PaperCut">PaperCut</option>
+              <option value="Microsoft Workspace">Microsoft Workspace</option>
+              <option value="CCTV">CCTV</option>
+              <option value="Remote access to server">Remote access to server</option>
+              <option value="UniFi Wifi and Network">UniFi Wifi and Network</option>
+              <option value="Google Workspace">Google Workspace</option>
+              <option value="Snipe-IT">Snipe-IT</option>
+              <option value="HR.my">HR.my</option>
+              <option value="No admin access required">No admin access required</option>
             </select>
             <!-- code a checkbox here with 5 options -->
             <button type="submit" @click="addTickets()">Submit</button>
@@ -94,15 +93,15 @@
           <form @submit.prevent="submitForm">
             <h1 class="feedback">OFFBOARDING</h1>
             <!-- Different form fields for Form 3 -->
-            <input type="text" placeholder="Full Name" v-model="field3" />
-            <input type="text" placeholder="Last working day (dd/mm/yyyy)?" v-model="field4" />
-            <select name="Device_Off" id="" v-model="device_Off">
+            <input type="text" placeholder="Full Name" v-model="fullname" />
+            <input type="text" placeholder="Last working day (dd/mm/yyyy)" v-model="last_day" />
+            <select name="Device_Off" id="" v-model="return_device">
               <option value="">Which device/s will the staff member be returning?</option>
-              <option value="on-board">Desktop</option>
-              <option value="off-board">Laptop</option>
-              <option value="IT-complaint">Tablet</option>
-              <option value="IT-complaint">Cellphone</option>
-              <option value="IT-complaint">None</option>
+              <option value="Desktop">Desktop</option>
+              <option value="Laptop">Laptop</option>
+              <option value="Tablet">Tablet</option>
+              <option value="Cellphone">Cellphone</option>
+              <option value="None">None</option>
             </select>
             <button type="submit" @click="addTickets()">Submit</button>
           </form>
@@ -122,49 +121,53 @@
   </div>
 </template>
 
-  
 <script>
-import { vModelCheckbox } from 'vue';
 import VueCookies from 'vue-cookies';
 export default {
   data() {
     return {
       complaint: '',
       description: '',
-      ticket_status:'',
       urgency: '',
-      full_name: '',
+      assignment: '',
+      status: '',
+      fullname: '',
       official_title: '',
-      ID_number: '',
-      first_working_day: '',
-      department:'',
-      device:'',
-      platform:'',
-access:'',
-device_Off:''
+      // first_work: '',
+      department: '',
+      device: '',
+      platform: '',
+      access: '',
+      return_device: '',
+      // last_day: '',
     };
   },
   methods: {
     submitForm() {
       // Form submission logic here
-      console.log('Form submitted:', this.complaint, this.description, this.ticket, this.urgency);
+      console.log('Form submitted:', this.complaint, this.description, this.urgency, this.assignment);
     },
-    async addTickets(){
+    async addTickets() {
       const userID = VueCookies.get('user_id');
       const task = {
         complaint: this.complaint,
         description: this.description,
-        ticket: this.ticket,
         urgency: this.urgency,
+        assignment: this.assignment,
         user_id: userID,
-        field1: this.field1,
-        field2: this.field2,
-        field3: this.field3,
-        field4: this.field4
+        fullname: this.fullname,
+        official_title: this.official_title,
+        // first_work: this.first_work,
+        department: this.department,
+        device: this.device,
+        platform: this.platform,
+        access: this.access,
+        return_device: this.return_device,
+        // last_day: this.last_day
       };
       await this.$store.dispatch('addTickets', task);
     }
-  },
+  }
 };
 </script>
 

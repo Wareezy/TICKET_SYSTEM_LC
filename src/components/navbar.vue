@@ -10,7 +10,7 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <router-link class="nav-link text-black" to="/systemabout" exact active-class="router-link-active">Home</router-link>
+                        <router-link class="nav-link text-black" to="/" exact active-class="router-link-active">Home</router-link>
                     </li>
                     <li class="nav-item">
                         <router-link class="nav-link text-black" to="/login">Login</router-link>
@@ -33,10 +33,10 @@
                 </ul>
                 <ul class="navbar-nav ms-auto right-align">
                     <li class="nav-item">
-                        <router-link class="nav-link text-black" to="/dashboard" @click="logOut()" >Log Out</router-link>
+                        <router-link class="nav-link text-black" to="/" @click="logOut()" >Log Out</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link text-black" to="/dashboard">Logged User</router-link>
+                        <router-link class="nav-link text-black" to="/">Logged User</router-link>
                     </li>
                 </ul>
             </div>

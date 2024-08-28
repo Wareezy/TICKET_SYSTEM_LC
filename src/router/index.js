@@ -4,7 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
 
   {
-    path: '/systemabout',
+    path: '/',
     name: 'systemabout',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route

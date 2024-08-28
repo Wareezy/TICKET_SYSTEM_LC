@@ -197,59 +197,63 @@ catch(error){
     async loginUser({ commit }, currentUser) {
       try {
         let { data } = await axios.post(BASE_URL + 'login', currentUser);
-
+    
         if (data.token) {
           VueCookies.set('token', data.token);
           let [{ user_id }] = data.user;
           VueCookies.set('user_id', user_id);
-          let [{user_role}] = data.user;
+          let [{ user_role }] = data.user;
           VueCookies.set('user_role', user_role);
-
-          Swal.fire({
+    
+          await Swal.fire({
             title: 'Login Successful',
             text: 'User has logged in successfully!',
             icon: 'success',
             timer: 1000,
             showConfirmButton: false
           });
-
-          setTimeout(() => {
-            if (user_role === 'admin') {
-              router.push('/dashboard'); // Admin redirect
-            } else {
-              router.push('/feedback'); // User redirect
-            }
-          }, 1000);
+    
+          if (user_role === 'admin') {
+            await router.push('/dashboard'); // Admin redirect
+          } else {
+            await router.push('/feedback'); // User redirect
+          }
+    
+          // Refresh the page
+          window.location.reload();
         } else {
-          Swal.fire({
+          await Swal.fire({
             title: 'Error',
             text: 'Failed to login, password or email is incorrect',
             icon: 'error',
             timer: 1000
           });
-
-          setTimeout(() => {
-            window.location.reload();
-          }, 3000);
+    
+          // Refresh the page
+          window.location.reload();
         }
       } catch (error) {
         console.error('Cannot login', error);
         VueCookies.remove('token');
-        Swal.fire({
+        await Swal.fire({
           title: 'Error',
           text: 'An error occurred during the login process.',
           icon: 'error',
           showConfirmButton: true
         });
+    
+        // Refresh the page
+        window.location.reload();
       }
-    },
+    }
+    ,
 
-    async logOut(context) {
+    async logOut({ commit }) {
       const token = VueCookies.get('token');
       const userRole = VueCookies.get('user_role');
       console.log({ token, userRole });
-
-      Swal.fire({
+    
+      const result = await Swal.fire({
         title: 'Are you sure?',
         text: 'You will be logged out',
         icon: 'warning',
@@ -257,21 +261,23 @@ catch(error){
         confirmButtonColor: 'rgb(171, 204, 55)',
         cancelButtonColor: '#000',
         confirmButtonText: 'Yes, log me out!',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          VueCookies.remove('token');
-          VueCookies.remove('user_role');
-          VueCookies.remove('user_id');
-          router.push('/systemabout') // Adjust the route as needed
-          
-          setTimeout(() => {
-            window.location.reload();
-          }, 10);
-        } else {
-          window.location.reload();
-        }
       });
-    },
+    
+      if (result.isConfirmed) {
+        VueCookies.remove('token');
+        VueCookies.remove('user_role');
+        VueCookies.remove('user_id');
+    
+        await router.push('/'); // Adjust the route as needed
+    
+        // Refresh the page
+        window.location.reload();
+      } else {
+        // Optionally handle the case where the user cancels the logout
+        window.location.reload();
+      }
+    }
+    ,
 
     async addTickets({ commit }, payload) {
       try {
@@ -285,6 +291,8 @@ catch(error){
           timer: 3000,
           showConfirmButton: false
         });
+        console.log(data);
+        
       } catch (error) {
         Swal.fire({
           title: 'Error',

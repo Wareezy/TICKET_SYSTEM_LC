@@ -12,7 +12,7 @@
         src="https://i.ibb.co/2SYrS1t/ticket-removebg-preview.png"
       />
     </div>
-    <button id="buttonSub" data-aos="fade-left" href="/login">Submit Complaint</button>
+    <router-link id="buttonSub" data-aos="fade-left" to="/login" class="btn">Submit Complaint</router-link>
   </div>
 </template>
 
@@ -50,8 +50,8 @@
   margin-right: 340px;
   margin-top: 40px;
 }
-#buttonSub {
-  background-color: rgb(217, 7, 0);
+#buttonSub  {
+  background-color: rgb(148, 176, 48);
   color: white;
   padding: 10px 20px;
   border: none;
@@ -60,5 +60,6 @@
   border-radius: 20px;
   margin-right: 300px;
   margin-bottom: 100px;
+
 }
 </style>
