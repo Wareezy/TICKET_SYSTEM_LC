@@ -3,24 +3,22 @@ import 'dotenv/config'
 
 export default {
     MAIL_ENGINE : async (req, res) => {
-        const { user_email, user_password } = req.body;
 
         const mailOptions = {
-            from: 'your-email@gmail.com',
-            to: 'recipient-email@example.com',
-            subject: 'Subject of your email',
-            text: 'Body of your email',
-            html: `<p>This is the body of your email in HTML format</p>`
+            from: 'brandonroulstone465@gmail.com',
+            to: 'brandonroulstone71@example.com',
+            subject: 'This test is finally working??',
+            text: 'Lorem ipsum is what html speaks in? or ... ??',
+            html: `<p>This is probably paid for I guess or maybe not?? :/</p>`
         };
     
         const transporter = nodemailer.createTransport({
-            service: process.env.PROTECTED_MAIL_PROVIDER,
-            host: 'smtp.ethereal.email',
-            port: 587,
-            secure: false,
+            // service: process.env.PROTECTED_MAIL_PROVIDER,
+            host: 'localhost',
+            port: 1025,
             auth: {
-                user: user_email,
-                pass: user_password
+                user: 'LCS',
+                pass: '#LC$Adm1n#1'
             }
         });
 
