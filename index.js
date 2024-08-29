@@ -8,6 +8,7 @@ import loginRouter from './Routes/login.js'
 import jwt from 'jsonwebtoken'
 import cookieParser from 'cookie-parser'
 import FeedbackCon from './Controller/FeedbackCon.js'
+import Resolver from './Routes/Resolver.js';
 // import { v4 as uuidv4 } from 'uuid';
 config()
 const app = express();
@@ -28,6 +29,7 @@ app.use('/test', (req, res) => {
 app.use('/user', userRouter)
 app.use('/feedback', ticketRouter)
 app.use('/login',auth,loginRouter)
+app.use('/resolved', Resolver)
 
 
 app.delete('/logout', (req, res) => {
