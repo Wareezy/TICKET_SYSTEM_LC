@@ -4,7 +4,7 @@ import Swal from 'sweetalert2'
 import VueCookies from 'vue-cookies';
 import router from '@/router' // Make sure the path is correct
 
-const BASE_URL = "https://ticket-system-lc.onrender.com/"
+const BASE_URL = "http://localhost:4000/"
 
 axios.defaults.withCredentials = true
 
