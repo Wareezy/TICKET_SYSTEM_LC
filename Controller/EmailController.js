@@ -18,11 +18,11 @@ export default {
             port: 1025,
             auth: {
                 user: 'LCS',
-                pass: '#LC$Adm1n#1'
+                pass: process.env.USER_PWD
             }
         });
 
-        transporter.sendMail(mailOptions, (error, info) => {
+        transporter.sendMail(mailOptions, (error, info) => { 
             if(error){
                 return console.log('Error occurred: ' + error.message);
             }
