@@ -16,14 +16,14 @@ export const getComplaint = async (ticket_id) => {
 };
 
 
-export const addComplaint = async (complaint, description, urgency,user_id,ID,first_work,devices,platforms,last_day,return_device,fullname,assignment,status) => {
+export const addComplaint = async (complaint, description, urgency,user_id,ID,first_work,devices,platforms,last_day,return_device,fullname,assignment,status,official_title) => {
     const [ insertedComplaint ] = await pool.query(`
-        INSERT INTO ticket_table (complaint, description, urgency,user_id,ID,first_work,devices,platforms,last_day,return_device,fullname,assignment,status) VALUES (?, ?, ?, ?,?,?,?,?,?,?,?,?,?)
-    `,[complaint, description, urgency,user_id,ID,first_work,devices,platforms,last_day,return_device,fullname,assignment,status]);
+        INSERT INTO ticket_table (complaint, description, urgency,user_id,ID,first_work,devices,platforms,last_day,return_device,fullname,assignment,status,official_title) VALUES (?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?)
+    `,[complaint, description, urgency,user_id,ID,first_work,devices,platforms,last_day,return_device,fullname,assignment,status,official_title]);
 
     return insertedComplaint.insertId;
 }
-export const updateComplaint = async (complaint, description, urgency, user_id, ID, first_work, devices, platforms, last_day, return_device, fullname,assignment,status, ticket_id) => {
+export const updateComplaint = async (complaint, description, urgency, user_id, ID, first_work, devices, platforms, last_day, return_device, fullname,assignment,status,official_title, ticket_id) => {
     const [result] = await pool.query(`
         UPDATE ticket_table
         SET 
@@ -39,10 +39,11 @@ export const updateComplaint = async (complaint, description, urgency, user_id, 
             return_device = ?, 
             fullname = ?,
             assignment =?, 
-            status =?
+            status =?,
+            official_title=?
         WHERE 
             ticket_id = ?
-    `, [complaint, description, urgency, user_id, ID, first_work, devices, platforms, last_day, return_device, fullname,assignment,status, ticket_id]);
+    `, [complaint, description, urgency, user_id, ID, first_work, devices, platforms, last_day, return_device, fullname,assignment,status, official_title,ticket_id]);
     
     return result;
 };
