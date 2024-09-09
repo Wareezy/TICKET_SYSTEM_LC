@@ -12,7 +12,19 @@
   </div>
    
 </template>
-
+<!-- data() {
+  return {
+    currYear: new Date().getFullYear(),
+    user_email: 'cheslyn@lifechoices.co.za',
+    subject: 'Hello from StudioTicketFlow',
+    body: 'I wanted to reach out regarding...'
+  };
+},
+computed: {
+  mailtoLink() {
+    return `mailto:${this.user_email}?subject=${encodeURIComponent(this.subject)}&body=${encodeURIComponent(this.body)}`;
+  }
+} -->
 <script>
     export default {
       computed: {

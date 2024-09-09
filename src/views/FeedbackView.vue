@@ -22,6 +22,8 @@
               <option value="not-urgent">Not urgent</option>
             </select>
             <button type="submit" @click="addTickets()">Submit</button>
+            <a :href="mailtoLink" type="submit" target="_blank" @click="addTickets()">email</a>
+            <!-- <a :href="mailtoLink" class="email-button" target="_blank">Email Us</a> -->
           </form>
         </div>
 
@@ -120,7 +122,19 @@
     </div>
   </div>
 </template>
-
+<!-- data() {
+  return {
+    currYear: new Date().getFullYear(),
+    user_email: 'cheslyn@lifechoices.co.za',
+    subject: 'Hello from StudioTicketFlow',
+    body: 'I wanted to reach out regarding...'
+  };
+},
+computed: {
+  mailtoLink() {
+    return `mailto:${this.user_email}?subject=${encodeURIComponent(this.subject)}&body=${encodeURIComponent(this.body)}`;
+  }
+} -->
 <script>
 import VueCookies from 'vue-cookies';
 export default {
@@ -140,6 +154,10 @@ export default {
       access: '',
       return_device: '',
       // last_day: '',
+      currYear: new Date().getFullYear(),
+      user_email: 'brandonroulstone465@gmail.com', //cheslyn@lifechoices.co.za
+      // subject: '', brandonroulstone465@gmail.com
+      // body: ''
     };
   },
   methods: {
@@ -166,6 +184,15 @@ export default {
         // last_day: this.last_day
       };
       await this.$store.dispatch('addTickets', task);
+    }
+  },
+  computed: {
+    mailtoLink() {
+      const task = {
+        complaint: this.complaint,
+        description: this.description,
+      }
+      return `mailto:${this.user_email}?subject=${encodeURIComponent(task.complaint)}&body=${encodeURIComponent(task.description)}`;
     }
   }
 };
@@ -217,7 +244,7 @@ select option {
   color: #000; /* Black color for select options */
 }
 
-button {
+button, a {
   padding: 12px;
   background-color: rgb(171, 204, 55); /* Green background color */
   color: #000; /* Black text color */
@@ -226,9 +253,13 @@ button {
   cursor: pointer;
   font-size: 16px; /* Larger font size for readability */
   transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+  text-decoration: none;
 }
 
 button:hover {
+  background-color: #a2b639; /* Darker green for hover effect */
+}
+a:hover {
   background-color: #a2b639; /* Darker green for hover effect */
 }
 

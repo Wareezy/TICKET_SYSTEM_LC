@@ -5,9 +5,9 @@
               <p class="lead">
                   StudioTicketFlow &copy;
                   <span>{{ currYear }}</span>
-                  <span>
+                  <!-- <span>
                     <a :href="mailtoLink" target="_blank" class="">Email the admin</a>
-                  </span>
+                  </span> -->
               </p>
           </div>
       </div>
