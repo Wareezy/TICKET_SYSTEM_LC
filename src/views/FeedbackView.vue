@@ -35,7 +35,7 @@
             <input type="text" placeholder="Full Name" v-model="fullname" />
             <input type="text" placeholder="Official Title" v-model="official_title" />
             <input type="text" placeholder="ID number" v-model="ID" />
-            <input type="text" placeholder="First working day" v-model="first_work" />
+            <input type="date" placeholder="First working day" v-model="first_work" />
             <select name="Department" id="" v-model="department">
               <option value="">Within department will you be working?</option>
               <option value="Health 4 Life">Health 4 Life</option>
@@ -96,7 +96,7 @@
             <h1 class="feedback">OFFBOARDING</h1>
             <!-- Different form fields for Form 3 -->
             <input type="text" placeholder="Full Name" v-model="fullname" />
-            <input type="text" placeholder="Last working day (dd/mm/yyyy)" v-model="last_day" />
+            <input type="date" placeholder="Last working day (dd/mm/yyyy)" v-model="last_day" />
             <select name="Device_Off" id="" v-model="return_device">
               <option value="">Which device/s will the staff member be returning?</option>
               <option value="Desktop">Desktop</option>
@@ -147,13 +147,13 @@ export default {
       status: '',
       fullname: '',
       official_title: '',
-      // first_work: '',
+      first_work: '',
       department: '',
       device: '',
       platform: '',
       access: '',
       return_device: '',
-      // last_day: '',
+      last_day: '',
       currYear: new Date().getFullYear(),
       user_email: 'brandonroulstone465@gmail.com', //cheslyn@lifechoices.co.za
       // subject: '', brandonroulstone465@gmail.com
@@ -166,25 +166,33 @@ export default {
       console.log('Form submitted:', this.complaint, this.description, this.urgency, this.assignment);
     },
     async addTickets() {
-      const userID = VueCookies.get('user_id');
-      const task = {
-        complaint: this.complaint,
-        description: this.description,
-        urgency: this.urgency,
-        assignment: this.assignment,
-        user_id: userID,
-        fullname: this.fullname,
-        official_title: this.official_title,
-        // first_work: this.first_work,
-        department: this.department,
-        device: this.device,
-        platform: this.platform,
-        access: this.access,
-        return_device: this.return_device,
-        // last_day: this.last_day
-      };
-      await this.$store.dispatch('addTickets', task);
-    }
+  const userID = VueCookies.get('user_id');
+  
+  // Format the date to 'YYYY-MM-DD' which is compatible with MySQL DATE type
+  const lastDayString = this.last_day ? new Date(this.last_day).toISOString().split('T')[0] : null;
+  const firstString = this.first_work ? new Date(this.first_work).toISOString().split('T')[0] : null;
+
+  const task = {
+    complaint: this.complaint,
+    description: this.description,
+    urgency: this.urgency,
+    assignment: this.assignment,
+    user_id: userID,
+    fullname: this.fullname,
+    official_title: this.official_title,
+    first_work: firstString,
+    department: this.department,
+    device: this.device,
+    platform: this.platform,
+    access: this.access,
+    return_device: this.return_device,
+    last_day: lastDayString, // Properly formatted date
+  };
+
+  await this.$store.dispatch('addTickets', task);
+}
+
+
   },
   computed: {
     mailtoLink() {
