@@ -33,6 +33,58 @@
       </tbody>
     </table>
   </div>
+  <h2>ONBOARDING TABLE</h2>
+  <div class="table-responsive">
+    <table class="table">
+      <thead id="head">
+        <tr>
+          <th>FULLNAME</th>
+          <th>TITLE</th>
+          <th>DEVICE</th>
+          <th>PLATFORMS</th>
+          <th>ACCESS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in $store.state.Tickets" :key="item.ticket_id">
+          <td>{{ item.fullname }}</td>
+          <td>{{ item.official_title }}</td>
+          <td>{{ item.devices }}</td>
+          <td>{{ item.platforms }}</td>
+          <td>{{ item.assignment }}</td>
+          <td>
+            <!-- <button @click="viewTicket(item.ticket_id)">View Ticket</button> -->
+            <router-link @click="viewTicket(item.ticket_id)" :to="{ name: 'DashboardSingle', params: { id: item.ticket_id }} " class="btn btn-dark">View Ticket</router-link>
+          </td>
+          <td><button @click="delTicket(item.ticket_id)" class="btn btn-dark">Resolve Ticket</button></td>    
+          <td><button @click="downloadToCSV()" class="btn btn-dark">CSV</button></td>    
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <h2>OFFBOARDING TABLE</h2>
+  <div class="table-responsive">
+    <table class="table">
+      <thead id="head">
+        <tr>
+          <th>FULLNAME</th>
+          <th>RETURNING DEVICE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in $store.state.Tickets" :key="item.ticket_id">
+          <td>{{ item.fullname }}</td>
+          <td>{{ item.return_device }}</td>
+          <td>
+            <!-- <button @click="viewTicket(item.ticket_id)">View Ticket</button> -->
+            <router-link @click="viewTicket(item.ticket_id)" :to="{ name: 'DashboardSingle', params: { id: item.ticket_id }} " class="btn btn-dark">View Ticket</router-link>
+          </td>
+          <td><button @click="delTicket(item.ticket_id)" class="btn btn-dark">Resolve Ticket</button></td>    
+          <td><button @click="downloadToCSV()" class="btn btn-dark">CSV</button></td>    
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script>
@@ -44,6 +96,7 @@ export default {
       ticket: null,
       urgency: null,
       user_id: null,
+      fullname: null,
     };
   },
   computed: {

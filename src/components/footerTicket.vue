@@ -34,9 +34,7 @@ export default {
 </script>
  <style>
  #footerID {
-    position: absolute;
-    margin-top:750px;
-    /* margin-top: 60px; */
+    /* position: absolute; */
     width: 100%; /* Full width */
     background-color: rgb(171, 204, 55);
     z-index: 1;
