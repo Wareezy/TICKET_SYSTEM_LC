@@ -37,7 +37,9 @@
             <input type="text" placeholder="Full Name" v-model="fullname" />
             <input type="text" placeholder="Official Title" v-model="official_title" />
             <input type="text" placeholder="ID number" v-model="ID" />
+
             <!-- <input type="text" placeholder="First working day" v-model="first_work" /> -->
+            
             <select name="Department" id="" v-model="department">
               <option value="">Within department will you be working?</option>
               <option value="Health 4 Life">Health 4 Life</option>
@@ -101,6 +103,7 @@
             <h1 class="feedback">OFFBOARDING</h1>
             <!-- Different form fields for Form 3 -->
             <input type="text" placeholder="Full Name" v-model="fullname" />
+
             <!-- <input type="text" placeholder="Last working day (dd/mm/yyyy)" v-model="last_day" /> -->
             <select name="Device_Off" id="" v-model="return_device">
               <option value="">Which device/s will the staff member be returning?</option>
@@ -155,13 +158,13 @@ export default {
       status: '',
       fullname: '',
       official_title: '',
-      // first_work: '',
+      first_work: '',
       department: '',
       devices: '',
       platforms: '',
       assignment: '',
       return_device: '',
-      // last_day: '',
+      last_day: '',
       currYear: new Date().getFullYear(),
       user_email: 'brandonroulstone465@gmail.com', //cheslyn@lifechoices.co.za
       // subject: '', brandonroulstone465@gmail.com
@@ -174,6 +177,7 @@ export default {
       console.log('Form submitted:', this.complaint, this.description, this.urgency, this.assignment);
     },
     async addTickets() {
+
       const userID = VueCookies.get('user_id');
       const task = {
         complaint: this.complaint,
