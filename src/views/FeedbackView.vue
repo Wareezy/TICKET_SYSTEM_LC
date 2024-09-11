@@ -36,6 +36,8 @@
             <!-- Different form fields for Form 2 -->
             <input type="text" placeholder="Full Name" v-model="fullname" />
             <input type="text" placeholder="Official Title" v-model="official_title" />
+            <input type="text" placeholder="ID number" v-model="IDnumber" />
+            <input type="date" placeholder="First working day" v-model="first_work" />
             <input type="text" placeholder="ID number" v-model="ID" />
 
             <!-- <input type="text" placeholder="First working day" v-model="first_work" /> -->
