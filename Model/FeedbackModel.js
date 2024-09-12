@@ -54,4 +54,29 @@ export const deleteComplaint = async(ticket_id) => {
     const [ Delete_complaint ] = await pool.query(`
         DELETE FROM ticket_table WHERE ticket_id = ?
     `, [ticket_id])
-}
+};
+
+export const history = async (ticket_id) => {
+    try {
+      const [insertedHistory] = await pool.query(`
+        INSERT INTO history_table (complaint, description, urgency, user_id, ID, first_work, devices, platforms, last_day, return_device, fullname, assignment, status, official_title)
+        SELECT complaint, description, urgency, user_id, ID, first_work, devices, platforms, last_day, return_device, fullname, assignment, status, official_title
+        FROM ticket_table
+        WHERE ticket_id = ?
+      `, [ticket_id]);
+  
+      return insertedHistory.insertId;
+    } catch (error) {
+      console.error("Error inserting into history_table:", error);
+      throw error;
+    }
+  };
+
+  export const  getHistory = async () => {
+    const [ history ] = await pool.query(`
+        SELECT * FROM history_table
+    `);
+    console.log(history);
+    return history;
+  };
+  

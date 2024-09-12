@@ -1,4 +1,4 @@
-import { getComplaints, getComplaint, addComplaint, updateComplaint, deleteComplaint } from "../Model/FeedbackModel.js"
+import { getComplaints, getComplaint, addComplaint, updateComplaint, deleteComplaint, history, getHistory } from "../Model/FeedbackModel.js"
 
 export default {
     GET_ALL_COMPLAINTS: async (req, res) => {
@@ -57,6 +57,35 @@ export default {
             res.send(await getComplaints());
         } catch (error) {
             res.send({ error: error.message, serverRes: 500 });
+        }
+    },
+    RESOLVE_COMPLAINTS: async (req, res) => {
+        try {
+          const { id: ticket_id } = req.params; // Extract ticket_id from URL parameters
+      
+          if (!ticket_id) {
+            return res.status(400).send({ error: 'ticket_id is required', serverRes: 400 });
+          }
+      
+          const ticketIdNum = Number(ticket_id); // Convert ticket_id to a number
+      
+          // Call history function to add the ticket to history_table
+          await history(ticketIdNum);
+      
+          // Fetch updated complaints list
+          const complaints = await getComplaints();
+          res.send(complaints);
+        } catch (error) {
+          res.status(500).send({ error: error.message, serverRes: 500 });
+        }
+      },
+      
+    GET_HISTORY: async (req, res) => {
+        try {
+            res.send(await getHistory());
+        }
+        catch (error) {
+            res.status(500).send({ error: error.message, serverRes: 500 });
         }
     }
 }
