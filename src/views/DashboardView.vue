@@ -27,7 +27,7 @@
             <!-- <button @click="viewTicket(item.ticket_id)">View Ticket</button> -->
             <router-link @click="viewTicket(item.ticket_id)" :to="{ name: 'DashboardSingle', params: { id: item.ticket_id }} " class="btn btn-dark">View Ticket</router-link>
           </td>
-          <td><button @click="delTicket(item.ticket_id)" class="btn btn-dark">Resolve Ticket</button></td>    
+          <td><button  @click="resolveTicket(item.ticket_id)"class="btn btn-dark">Resolve Tickets</button></td>    
           <td><button @click="downloadToCSV()" class="btn btn-dark">CSV</button></td>    
         </tr>
       </tbody>
@@ -79,7 +79,7 @@
             <!-- <button @click="viewTicket(item.ticket_id)">View Ticket</button> -->
             <router-link @click="viewTicket(item.ticket_id)" :to="{ name: 'DashboardSingle', params: { id: item.ticket_id }} " class="btn btn-dark">View Ticket</router-link>
           </td>
-          <td><button @click="delTicket(item.ticket_id)" class="btn btn-dark">Resolve Ticket</button></td>    
+          <td><button @click="addTicketToHistory(item.ticket_id)" class="btn btn-dark">Resolve Ticket</button></td>    
           <td><button @click="downloadToCSV()" class="btn btn-dark">CSV</button></td>    
         </tr>
       </tbody>
@@ -122,9 +122,30 @@ export default {
       link.click();
     },
 
-    delTicket(ticket_id){
-      this.$store.dispatch('delTicket',ticket_id)
+    async resolveTicket(ticket_id) {
+    try {
+      // Add to history first
+      await this.addTicketToHistory(ticket_id); // Call the method to add to history
+      // Then delete the ticket
+      this.delTicket(ticket_id);
+     
+    } catch (error) {
+      console.error("Error resolving ticket:", error);
     }
+  },
+
+  delTicket(ticket_id) {
+    this.$store.dispatch('delTicket', ticket_id);
+  },
+
+  delTicket(ticket_id) {
+    this.$store.dispatch('delTicket', ticket_id);
+  },
+
+  // Method to dispatch the Vuex action to add a ticket to history
+  async addTicketToHistory(ticket_id) {
+     this.$store.dispatch('addHistory', ticket_id);
+  }
   },
   mounted() {
     this.getTickets;

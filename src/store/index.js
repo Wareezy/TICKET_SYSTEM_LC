@@ -12,7 +12,8 @@ export default createStore({
   state: {
     users: [],
     Tickets: [],
-    singleTicket: []
+    singleTicket: [],
+    history: [],
   },
   getters: {},
   mutations: {
@@ -24,7 +25,10 @@ export default createStore({
     },
     setSingleTicket(state, data) {
       state.singleTicket = data;
-    }
+    },
+    setHistory(state, data) {
+      state.history = data;
+    },
   },
   actions: {
     async getUsers({ commit }) {
@@ -304,6 +308,38 @@ catch(error){
         setTimeout(() => {
           window.location.reload();
         }, 3000);
+      }
+    },
+    async getHistory({ commit }) {
+      try {
+        let { data } = await axios.get(`http://localhost:4000/feedback/history`);
+        console.log(data);
+        commit('setHistory', data);
+      } catch (error) {
+        console.error('Cannot get the history', error);
+      }
+    },
+    async addHistory({ commit }, id) {
+      try {
+        let { data } = await axios.post(`http://localhost:4000/feedback/post/${id}`);
+        console.log(data);
+        // commit('addHistory', data);
+        Swal.fire({
+          title: 'Added Successful',
+          text: 'History has been added successfully!',
+          icon:'success',
+          timer: 3000,
+          showConfirmButton: false
+        });
+        // console.log(data);
+      }
+      catch (error) {
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to add history',
+          icon: 'error',
+          timer: 3000
+        });
       }
     }
   },

@@ -13,7 +13,7 @@
                         <router-link class="nav-link text-black" to="/" exact active-class="router-link-active">Home</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link text-black" to="/login">Login</router-link>
+                        <router-link class="nav-link text-black" to="/login" v-if="!isLogged">Login</router-link>
                     </li>
                     <li class="nav-item">
                         <router-link class="nav-link text-black" to="/feedback">Feedback</router-link>
@@ -28,16 +28,16 @@
                         <router-link class="nav-link text-black" to="/register">Register</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link text-black" to="/user">User</router-link>
+                        <router-link class="nav-link text-black" to="/user" v-if="isAdmin" >User</router-link>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto right-align">
                     <li class="nav-item">
-                        <router-link class="nav-link text-black" to="/" @click="logOut()" >Log Out</router-link>
+                        <router-link class="nav-link text-black" to="/" @click="logOut()" v-if="isLogged" >Log Out</router-link>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <router-link class="nav-link text-black" to="/">Logged User</router-link>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>
@@ -47,15 +47,19 @@
 <script>
   import VueCookies from 'vue-cookies';
 export default {
-  // Your Vue.js component logic here
+
 computed : {
     isAdmin() {
       return VueCookies.get('user_role') === 'admin';
+    },
+    isLogged(){
+        return VueCookies.get('token');
     }
 },
   methods: {
     async logOut(){
-        this.$store.dispatch('logOut');
+      await  this.$store.dispatch('logOut');
+        window.location.reload();
     }
   },
 }

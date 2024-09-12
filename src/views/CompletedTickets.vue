@@ -62,7 +62,14 @@
     computed: {
       completedTickets() {
         return this.tickets.filter(ticket => ticket.status === 'Resolved');
+      },
+      getHistory(){
+        this.$store.dispatch('getHistory')
       }
+    },
+    mounted() {
+      this.getHistory
+      // this.completedTickets
     }
   };
   </script>

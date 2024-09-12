@@ -106,7 +106,7 @@
             <!-- Different form fields for Form 3 -->
             <input type="text" placeholder="Full Name" v-model="fullname" />
 
-            <!-- <input type="text" placeholder="Last working day (dd/mm/yyyy)" v-model="last_day" /> -->
+            <input type="date" placeholder="Last working day (dd/mm/yyyy)" v-model="last_day" />
             <select name="Device_Off" id="" v-model="return_device">
               <option value="">Which device/s will the staff member be returning?</option>
               <option value="Desktop">Desktop</option>
@@ -181,24 +181,44 @@ export default {
     async addTickets() {
 
       const userID = VueCookies.get('user_id');
-      const task = {
-        complaint: this.complaint,
-        description: this.description,
-        urgency: this.urgency,
-        assignment: this.assignment,
-        user_id: userID,
-        fullname: this.fullname,
-        official_title: this.official_title,
-        // first_work: this.first_work,
-        department: this.department,
-        devices: this.devices,
-        platforms: this.platforms,
-        assignment: this.assignment,
-        return_device: this.return_device,
-        // last_day: this.last_day
-      };
+  
+  // Format the date to 'YYYY-MM-DD' which is compatible with MySQL DATE type
+  const lastDayString = this.last_day ? new Date(this.last_day).toISOString().split('T')[0] : null;
+  const firstString = this.first_work ? new Date(this.first_work).toISOString().split('T')[0] : null;
+
+  const task = {
+    complaint: this.complaint,
+    description: this.description,
+    urgency: this.urgency,
+    assignment: this.assignment,
+    user_id: userID,
+    fullname: this.fullname,
+    official_title: this.official_title,
+    first_work: firstString,
+    department: this.department,
+    device: this.device,
+    platform: this.platform,
+    access: this.access,
+    return_device: this.return_device,
+    last_day: lastDayString, // Properly formatted date
+  };
       await this.$store.dispatch('addTickets', task);
-    }
+      this.clearForm();
+    },
+    clearForm() {
+  this.complaint = '';
+  this.description = '';
+  this.urgency = '';
+  this.assignment = '';
+  this.fullname = '';
+  this.official_title = '';
+  this.department = '';
+  this.devices = '';
+  this.platforms = '';
+  this.return_device = '';
+  this.last_day= '';
+  this.first_work= '';
+}
   },
   computed: {
     ItComplaint() {
